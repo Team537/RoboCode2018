@@ -15,19 +15,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class SubsystemDrive extends Subsystem implements PIDOutput {
 	private SwerveModule backRight = new SwerveModule(
 		"Back Right", RobotMap.CAN.DRIVE_BACK_RIGHT_ANGLE, RobotMap.CAN.DRIVE_BACK_RIGHT_DRIVE,
-		new PID(5.0, 0.0, 10.0)
+		new PID(5.25, 0.0, 10.0)
 	);
 	private SwerveModule frontRight = new SwerveModule(
 		"Front Right", RobotMap.CAN.DRIVE_FRONT_RIGHT_ANGLE, RobotMap.CAN.DRIVE_FRONT_RIGHT_DRIVE,
-		new PID(5.0, 0.0, 10.0)
+		new PID(5.25, 0.0, 10.0)
 	);
 	private SwerveModule frontLeft = new SwerveModule(
 		"Front Left", RobotMap.CAN.DRIVE_FRONT_LEFT_ANGLE, RobotMap.CAN.DRIVE_FRONT_LEFT_DRIVE,
-		new PID(5.0, 0.0, 10.0)
+		new PID(5.25, 0.0, 10.0)
 	);
 	private SwerveModule backLeft = new SwerveModule(
 		"Back Left", RobotMap.CAN.DRIVE_BACK_LEFT_ANGLE, RobotMap.CAN.DRIVE_BACK_LEFT_DRIVE,
-		new PID(5.0, 0.0, 10.0)
+		new PID(5.25, 0.0, 10.0)
 	);
 
 	public SubsystemDrive() {

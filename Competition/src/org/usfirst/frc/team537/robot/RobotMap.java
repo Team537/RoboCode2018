@@ -6,8 +6,8 @@ public class RobotMap {
 	}
 
 	public static class Robot {
-		public static final double WIDTH = 20.75;
-		public static final double LENGTH = 24.41;
+		public static final double WIDTH = 62.0;
+		public static final double LENGTH = 53.0;
 		public static final double RATIO = Math.sqrt((LENGTH * LENGTH) + (WIDTH * WIDTH));
 
 	//	public static final float DRIVE_SPEED_X = 1.0f;

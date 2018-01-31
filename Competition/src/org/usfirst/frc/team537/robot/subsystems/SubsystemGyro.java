@@ -65,7 +65,7 @@ public class SubsystemGyro extends Subsystem implements PIDSource {
 
 	@Override
 	public double pidGet() {
-		return getAngle();
+		return Maths.normalizeAngle(getAngle());
 	}
 	
 	public void reset() {

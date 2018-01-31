@@ -13,10 +13,10 @@ public class CommandDriveRotate extends Command {
 	
 	public CommandDriveRotate(double angle) {
 		requires(Robot.subsystemDrive);
-		this.controller = new PIDController(1.0f, 0.0f, 0.0f, Robot.subsystemGyro, Robot.subsystemDrive);
-		this.controller.setInputRange(0.0f, 360.0f);
-		this.controller.setOutputRange(-0.2f, 0.2f);
-		this.controller.setPercentTolerance(0.05f);
+		this.controller = new PIDController(0.1, 0.0, 0.0, Robot.subsystemGyro, Robot.subsystemDrive);
+		this.controller.setInputRange(0.0, 360.0);
+		this.controller.setOutputRange(-0.4, 0.4);
+		this.controller.setPercentTolerance(0.01);
 		this.controller.setContinuous();
 		this.controller.enable();
 		this.angle = angle;
@@ -32,7 +32,7 @@ public class CommandDriveRotate extends Command {
 	@Override
 	protected void execute() {
 		SmartDashboard.getNumber("Rotate Error", controller.getError());
-		Robot.subsystemDrive.setTarget(0.0f, angle, controller.get());
+		Robot.subsystemDrive.setTarget(0.0, controller.get(), 0.0, 0.0);
 	}
 
 	@Override
