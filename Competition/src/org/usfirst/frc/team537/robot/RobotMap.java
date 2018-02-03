@@ -10,9 +10,7 @@ public class RobotMap {
 		public static final double LENGTH = 53.0;
 		public static final double RATIO = Math.sqrt((LENGTH * LENGTH) + (WIDTH * WIDTH));
 
-	//	public static final float DRIVE_SPEED_X = 1.0f;
-	//	public static final float DRIVE_SPEED_Y = 1.0f;
-	//	public static final float DRIVE_SPEED_Z = 1.0f;
+		public static final float DRIVE_SPEED = 1.0f;
 	}
 
 	public static class PWM {
@@ -37,7 +35,7 @@ public class RobotMap {
 	}
 
 	public static class Digital {
-		public static final double DRIVE_M_TO_ENCODER = 1.0 / (0.14605 * Math.PI); // Metre => Encoder Ticks: (distance 'm' / (wheel diameter 'm' * PI)).
+		public static final double DRIVE_M_TO_ENCODER = -13460.19; // Ticks/Metre
 	}
 
 	public static class Analog {

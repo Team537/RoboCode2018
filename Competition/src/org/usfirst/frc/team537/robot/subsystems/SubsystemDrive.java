@@ -7,6 +7,7 @@ import org.usfirst.frc.team537.robot.RobotMap;
 import org.usfirst.frc.team537.robot.commands.CommandDriveDefault;
 import org.usfirst.frc.team537.robot.helpers.Maths;
 import org.usfirst.frc.team537.robot.helpers.PID;
+import org.usfirst.frc.team537.robot.subsystems.SwerveModule.SwerveMode;
 
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -48,7 +49,7 @@ public class SubsystemDrive extends Subsystem implements PIDOutput {
 
 	public void dashboard() {
 		SmartDashboard.putBoolean("Drive At Target", isAtTarget());
-		SmartDashboard.putBoolean("Drive At Angle", isAtAngle());
+		SmartDashboard.putBoolean("Drive At Angle", isAtAngle(10.0));
 		backLeft.dashboard();
 		backRight.dashboard();
 		frontLeft.dashboard();
@@ -83,20 +84,27 @@ public class SubsystemDrive extends Subsystem implements PIDOutput {
 			bls /= maxSpeed;
 			brs /= maxSpeed;
 		}
+		
+		if ((isDriverControl() && !isAtAngle(100.0)) || (!isDriverControl() && !isAtAngle(8.0))) {
+			frs = 0.0;
+			fls = 0.0;
+			bls = 0.0;
+			brs = 0.0;
+		}
 
-		frontRight.setTarget(fra, frs);
-		frontLeft.setTarget(fla, fls);
-		backLeft.setTarget(bla, bls);
-		backRight.setTarget(bra, brs);
+		frontRight.setTarget(fra, frs * RobotMap.Robot.DRIVE_SPEED);
+		frontLeft.setTarget(fla, fls * RobotMap.Robot.DRIVE_SPEED);
+		backLeft.setTarget(bla, bls * RobotMap.Robot.DRIVE_SPEED);
+		backRight.setTarget(bra, brs * RobotMap.Robot.DRIVE_SPEED);
 	}
 
 	public void setTarget(double gyro, double angle, double forward) {
 		double f = Maths.normalizeAngle(angle - gyro);
 		
-		frontRight.setTarget(f, forward);
-		frontLeft.setTarget(f, forward);
-		backLeft.setTarget(f, forward);
-		backRight.setTarget(f, forward);
+		frontRight.setTarget(f, forward + 0.01);
+		frontLeft.setTarget(f, forward + 0.01);
+		backLeft.setTarget(f, forward + 0.01);
+		backRight.setTarget(f, forward + 0.01);
 	}
 
 	@Override
@@ -114,8 +122,12 @@ public class SubsystemDrive extends Subsystem implements PIDOutput {
 		return frontRight.isAtTarget() && frontLeft.isAtTarget() && backLeft.isAtTarget() && backRight.isAtTarget();
 	}
 
-	public boolean isAtAngle() {
-		return frontRight.isAtAngle() && frontLeft.isAtAngle() && backLeft.isAtAngle() && backRight.isAtAngle();
+	public boolean isAtAngle(double error) {
+		return frontRight.isAtAngle(error) && frontLeft.isAtAngle(error) && backLeft.isAtAngle(error) && backRight.isAtAngle(error);
+	}
+	
+	public boolean isDriverControl() {
+		return frontRight.getMode() == SwerveMode.ModeSpeed;
 	}
 	
 	public void reset() {

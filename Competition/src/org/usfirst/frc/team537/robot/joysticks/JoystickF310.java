@@ -32,6 +32,8 @@ public class JoystickF310 extends IJoystick {
 		add("Pivot90", new ValueUsage(Keys.B, false));
 		add("Pivot180", new ValueUsage(Keys.A, false));
 		add("Pivot270", new ValueUsage(Keys.X, false));
+		add("Rate", new ValueUsage(Keys.START, false));
+		add("Dist", new ValueUsage(Keys.BACK, false));
 	}
 
 	@Override

@@ -65,13 +65,17 @@ public class Maths {
 	 * @return The normalized angle.
 	 */
 	public static double normalizeAngle(double angle) {
-		if (angle >= 360.0) {
-			return angle - 360.0;
-		} else if (angle < 0) {
-			return angle + 360.0;
+		double result = angle;
+		
+		while (result >= 360.0 || result < 0) {
+			if (result >= 360.0) {
+				result -= 360.0;
+			} else if (result < 0) {
+				result += 360.0;
+			}
 		}
 
-		return angle;
+		return result;
 	}
 	
 	/**

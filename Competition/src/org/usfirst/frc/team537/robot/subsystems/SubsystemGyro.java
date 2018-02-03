@@ -33,13 +33,7 @@ public class SubsystemGyro extends Subsystem implements PIDSource {
 		timerDashboard.schedule(new TimerTask() {
 			@Override
 			public void run() {
-	            SmartDashboard.putNumber("NavX Angle", Maths.roundToPlace(ahrs.getAngle(), 3));
-	     //       SmartDashboard.putNumber("NavX Angle Pitch", Maths.roundToPlace(ahrs.getPitch(), 3));
-	     //       SmartDashboard.putNumber("NavX Angle Yaw", Maths.roundToPlace(ahrs.getYaw(), 3));
-	     //       SmartDashboard.putNumber("NavX Angle Roll", Maths.roundToPlace(ahrs.getRoll(), 3));
-	     //       SmartDashboard.putNumber("NavX Velocity X", Maths.roundToPlace(ahrs.getVelocityX(), 3));
-	     //       SmartDashboard.putNumber("NavX Velocity Y", Maths.roundToPlace(ahrs.getVelocityY(), 3));
-	     //       SmartDashboard.putNumber("NavX Velocity Z", Maths.roundToPlace(ahrs.getVelocityZ(), 3));
+	            SmartDashboard.putNumber("NavX Angle", Maths.roundToPlace(getAngle(), 3));
 			}
 		}, 0, 100);
 	}
@@ -50,7 +44,7 @@ public class SubsystemGyro extends Subsystem implements PIDSource {
 	}
 
 	public double getAngle() {
-		return ahrs.getAngle();
+		return Maths.normalizeAngle(ahrs.getAngle());
 	}
 
 	@Override
@@ -65,7 +59,7 @@ public class SubsystemGyro extends Subsystem implements PIDSource {
 
 	@Override
 	public double pidGet() {
-		return Maths.normalizeAngle(getAngle());
+		return getAngle();
 	}
 	
 	public void reset() {

@@ -3,37 +3,45 @@ package org.usfirst.frc.team537.robot.commands;
 import org.usfirst.frc.team537.robot.Robot;
 import org.usfirst.frc.team537.robot.subsystems.SwerveModule;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class CommandDriveSpeed extends Command {
-	private double strafe;
-	private double forward;
+	private double angle;
+	private double speed;
+	private double timeout;
+	private Timer timer;
 	
-	public CommandDriveSpeed(double strafe, double forward) {
+	public CommandDriveSpeed(double angle, double speed, double timeout) {
 		requires(Robot.subsystemDrive);
-		this.strafe = strafe;
-		this.forward = forward;
+		this.angle = angle;
+		this.speed = speed;
+		this.timeout = timeout;
+		this.timer = new Timer();
 	}
 
 	@Override
 	protected void initialize() {
 		Robot.subsystemDrive.reset();
 		Robot.subsystemDrive.setMode(SwerveModule.SwerveMode.ModeSpeed);
+		timer.reset();
+		timer.start();
 	}
 
 	@Override
 	protected void execute() {
-		double gyro = Math.toRadians(Robot.subsystemGyro.getAngle());
-		Robot.subsystemDrive.setTarget(gyro, 0.0, strafe, forward);
+		double gyro = Robot.subsystemGyro.getAngle();
+		Robot.subsystemDrive.setTarget(gyro, angle, speed);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return Robot.subsystemDrive.isAtTarget();
+		return timer.get() > timeout;
 	}
 
 	@Override
 	protected void end() {
+		timer.stop();
 		Robot.subsystemDrive.stop();
 	}
 

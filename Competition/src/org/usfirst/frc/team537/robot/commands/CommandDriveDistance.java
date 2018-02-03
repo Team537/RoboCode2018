@@ -24,13 +24,13 @@ public class CommandDriveDistance extends Command {
 
 	@Override
 	protected void execute() {
-		double gyro = Math.toRadians(Robot.subsystemGyro.getAngle());
+		double gyro = Robot.subsystemGyro.getAngle();
 		Robot.subsystemDrive.setTarget(gyro, angle, distance);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return false; // Robot.subsystemDrive.isAtTarget();
+		return Robot.subsystemDrive.isAtTarget();
 	}
 
 	@Override
