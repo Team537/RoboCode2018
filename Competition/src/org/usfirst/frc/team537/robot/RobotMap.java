@@ -6,8 +6,8 @@ public class RobotMap {
 	}
 
 	public static class Robot {
-		public static final double WIDTH = 62.0;
-		public static final double LENGTH = 53.0;
+		public static final double WIDTH = 22.5; // 62.0;
+		public static final double LENGTH = 22.5; // 53.0;
 		public static final double RATIO = Math.sqrt((LENGTH * LENGTH) + (WIDTH * WIDTH));
 
 		public static final float DRIVE_SPEED = 1.0f;
@@ -35,7 +35,7 @@ public class RobotMap {
 	}
 
 	public static class Digital {
-		public static final double DRIVE_M_TO_ENCODER = -13460.19; // Ticks/Metre
+		public static final double DRIVE_M_TO_ENCODER = 13461.0; // Ticks/Metre
 	}
 
 	public static class Analog {

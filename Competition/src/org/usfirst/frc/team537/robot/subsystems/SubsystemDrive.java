@@ -3,12 +3,14 @@ package org.usfirst.frc.team537.robot.subsystems;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.usfirst.frc.team537.robot.Robot;
 import org.usfirst.frc.team537.robot.RobotMap;
 import org.usfirst.frc.team537.robot.commands.CommandDriveDefault;
 import org.usfirst.frc.team537.robot.helpers.Maths;
 import org.usfirst.frc.team537.robot.helpers.PID;
 import org.usfirst.frc.team537.robot.subsystems.SwerveModule.SwerveMode;
 
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -16,20 +18,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class SubsystemDrive extends Subsystem implements PIDOutput {
 	private SwerveModule backRight = new SwerveModule(
 		"Back Right", RobotMap.CAN.DRIVE_BACK_RIGHT_ANGLE, RobotMap.CAN.DRIVE_BACK_RIGHT_DRIVE,
-		new PID(5.25, 0.0, 10.0)
+		new PID(5.2, 0.0, 9.8)
 	);
 	private SwerveModule frontRight = new SwerveModule(
 		"Front Right", RobotMap.CAN.DRIVE_FRONT_RIGHT_ANGLE, RobotMap.CAN.DRIVE_FRONT_RIGHT_DRIVE,
-		new PID(5.25, 0.0, 10.0)
+		new PID(5.2, 0.0, 9.8)
 	);
 	private SwerveModule frontLeft = new SwerveModule(
 		"Front Left", RobotMap.CAN.DRIVE_FRONT_LEFT_ANGLE, RobotMap.CAN.DRIVE_FRONT_LEFT_DRIVE,
-		new PID(5.25, 0.0, 10.0)
+		new PID(5.2, 0.0, 9.8)
 	);
 	private SwerveModule backLeft = new SwerveModule(
 		"Back Left", RobotMap.CAN.DRIVE_BACK_LEFT_ANGLE, RobotMap.CAN.DRIVE_BACK_LEFT_DRIVE,
-		new PID(5.25, 0.0, 10.0)
+		new PID(5.2, 0.0, 9.8)
 	);
+	private PIDController controllerRotate;
 
 	public SubsystemDrive() {
 		setName("Drive");
@@ -44,6 +47,13 @@ public class SubsystemDrive extends Subsystem implements PIDOutput {
 
 	@Override
 	protected void initDefaultCommand() {
+		this.controllerRotate = new PIDController(0.01, 0.0, 0.002, Robot.subsystemGyro, Robot.subsystemDrive);
+		this.controllerRotate.setInputRange(0.0, 360.0);
+		this.controllerRotate.setOutputRange(-0.5, 0.5);
+		this.controllerRotate.setPercentTolerance(0.07);
+		this.controllerRotate.setContinuous();
+		this.controllerRotate.disable();
+		
 		setDefaultCommand(new CommandDriveDefault());
 	}
 
@@ -57,6 +67,11 @@ public class SubsystemDrive extends Subsystem implements PIDOutput {
 	}
 
 	public void setTarget(double gyro, double rotation, double strafe, double forward) {
+		if (controllerRotate.isEnabled()) {
+			rotation = controllerRotate.get();
+		}
+
+		boolean driverControl = isDriverControl();
 		double fwd2 = (forward * Math.cos(gyro)) + strafe * Math.sin(gyro);
 		double str2 = (-forward * Math.sin(gyro)) + strafe * Math.cos(gyro);
 
@@ -85,26 +100,26 @@ public class SubsystemDrive extends Subsystem implements PIDOutput {
 			brs /= maxSpeed;
 		}
 		
-		if ((isDriverControl() && !isAtAngle(100.0)) || (!isDriverControl() && !isAtAngle(8.0))) {
+		if ((driverControl && !isAtAngle(100.0)) || (!isDriverControl() && !isAtAngle(8.0))) {
 			frs = 0.0;
 			fls = 0.0;
 			bls = 0.0;
 			brs = 0.0;
 		}
 
-		frontRight.setTarget(fra, frs * RobotMap.Robot.DRIVE_SPEED);
-		frontLeft.setTarget(fla, fls * RobotMap.Robot.DRIVE_SPEED);
-		backLeft.setTarget(bla, bls * RobotMap.Robot.DRIVE_SPEED);
-		backRight.setTarget(bra, brs * RobotMap.Robot.DRIVE_SPEED);
+		frontRight.setTarget(fra, frs * RobotMap.Robot.DRIVE_SPEED, driverControl);
+		frontLeft.setTarget(fla, fls * RobotMap.Robot.DRIVE_SPEED, driverControl);
+		backLeft.setTarget(bla, bls * RobotMap.Robot.DRIVE_SPEED, driverControl);
+		backRight.setTarget(bra, brs * RobotMap.Robot.DRIVE_SPEED, driverControl);
 	}
 
 	public void setTarget(double gyro, double angle, double forward) {
 		double f = Maths.normalizeAngle(angle - gyro);
 		
-		frontRight.setTarget(f, forward + 0.01);
-		frontLeft.setTarget(f, forward + 0.01);
-		backLeft.setTarget(f, forward + 0.01);
-		backRight.setTarget(f, forward + 0.01);
+		frontRight.setTarget(f, forward, false);
+		frontLeft.setTarget(f, forward, false);
+		backLeft.setTarget(f, forward, false);
+		backRight.setTarget(f, forward, false);
 	}
 
 	@Override
@@ -118,10 +133,20 @@ public class SubsystemDrive extends Subsystem implements PIDOutput {
 		backRight.setMode(swerveMode);
 	}
 
+	public PIDController getControllerRotate() {
+		return controllerRotate;
+	}
+	
+	public void setControllerRotate(double setpoint) {
+		controllerRotate.reset();
+		controllerRotate.setSetpoint(setpoint);
+		controllerRotate.enable();
+	}
+
 	public boolean isAtTarget() {
 		return frontRight.isAtTarget() && frontLeft.isAtTarget() && backLeft.isAtTarget() && backRight.isAtTarget();
 	}
-
+	
 	public boolean isAtAngle(double error) {
 		return frontRight.isAtAngle(error) && frontLeft.isAtAngle(error) && backLeft.isAtAngle(error) && backRight.isAtAngle(error);
 	}
@@ -138,6 +163,7 @@ public class SubsystemDrive extends Subsystem implements PIDOutput {
 	}
 	
 	public void stop() {
+		controllerRotate.disable();
 		backLeft.stop();
 		backRight.stop();
 		frontLeft.stop();

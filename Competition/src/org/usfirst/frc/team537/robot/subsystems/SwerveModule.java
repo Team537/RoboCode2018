@@ -14,7 +14,7 @@ public class SwerveModule {
 	public static enum SwerveMode {
 		ModeSpeed(ControlMode.PercentOutput, new PID(0.0, 0.0, 0.0)), 
 		ModeRate(ControlMode.Velocity, new PID(0.05, 0.0, 0.025, 0.3)), 
-		ModeDistance(ControlMode.Position, new PID(3.0, 0.0, 0.0));
+		ModeDistance(ControlMode.Position, new PID(0.0438, 0.0, 0.0));
 		
 		private ControlMode controlMode;
 		private PID pidDrive;
@@ -53,7 +53,7 @@ public class SwerveModule {
 		setpointDrive = 0.0;
 		swerveMode = SwerveMode.ModeSpeed;
 
-		talonAngle.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, RobotMap.kPIDLoopIdx, RobotMap.kTimeoutMs);
+		talonAngle.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, RobotMap.kPIDLoopIdx, RobotMap.kTimeoutMs);
         talonAngle.config_kP(RobotMap.kPIDLoopIdx, pidAngle.getP(), RobotMap.kTimeoutMs);
         talonAngle.config_kI(RobotMap.kPIDLoopIdx, pidAngle.getI(), RobotMap.kTimeoutMs); 
         talonAngle.config_kD(RobotMap.kPIDLoopIdx, pidAngle.getD(), RobotMap.kTimeoutMs);
@@ -64,15 +64,14 @@ public class SwerveModule {
 	}
 
 	public void dashboard() {
-	//	SmartDashboard.putNumber(moduleName + " Angle", currentAngle);
+		SmartDashboard.putNumber(moduleName + " Angle", currentAngle * (360.0 / 4096.0));
+		SmartDashboard.putNumber(moduleName + " Angle Setpoint", setpointAngle * (360.0 / 4096.0));
 		SmartDashboard.putNumber(moduleName + " Drive", currentDrive);
-		if (moduleName == "Front Left") {
-			SmartDashboard.putNumber(moduleName + " Setpoint", setpointDrive);
-		}
+		SmartDashboard.putNumber(moduleName + " Drive Setpoint", setpointDrive);
 	//	SmartDashboard.putNumber(moduleName + " Drive Velocity", talonDrive.getSelectedSensorVelocity(RobotMap.kPIDLoopIdx));
 	}
 
-	public void setTarget(double angle, double drive) {
+	public void setTarget(double angle, double drive, boolean driverControl) {
         talonDrive.config_kP(RobotMap.kPIDLoopIdx, swerveMode.getPidDrive().getP(), RobotMap.kTimeoutMs);
         talonDrive.config_kI(RobotMap.kPIDLoopIdx, swerveMode.getPidDrive().getI(), RobotMap.kTimeoutMs); 
         talonDrive.config_kD(RobotMap.kPIDLoopIdx, swerveMode.getPidDrive().getD(), RobotMap.kTimeoutMs);
@@ -82,17 +81,19 @@ public class SwerveModule {
 		currentDrive = talonDrive.getSelectedSensorPosition(RobotMap.kPIDLoopIdx);
 
 		setpointAngle = Maths.normalizeAngle(-angle + 360.0);
-		setpointDrive = -drive;
+		setpointDrive = drive;
 		
-		if (setpointAngle > 180.0) {
+		if (driverControl && setpointAngle >= 180.0) {
 			setpointAngle -= 180.0;
 			setpointDrive = -setpointDrive;
 		}
 		
-		if (setpointAngle != 0.0) {
-			talonAngle.set(ControlMode.Position,  setpointAngle = 4096.0 * (setpointAngle / 360.0));
+		if (!driverControl || setpointAngle != 0.0) {
+			setpointAngle = 4096.0 * (setpointAngle / 360.0) + 1;
+			talonAngle.set(ControlMode.Position,  setpointAngle);
 		}
-		talonDrive.set(swerveMode.getControlMode(), setpointDrive);
+		
+		talonDrive.set(swerveMode.getControlMode(), Maths.deadband(0.05, setpointDrive));
 	}
 	
 	public SwerveMode getMode() {

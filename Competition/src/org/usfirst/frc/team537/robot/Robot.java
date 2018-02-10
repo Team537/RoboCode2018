@@ -5,6 +5,7 @@ import org.usfirst.frc.team537.robot.subsystems.SubsystemCamera;
 import org.usfirst.frc.team537.robot.subsystems.SubsystemDrive;
 import org.usfirst.frc.team537.robot.subsystems.SubsystemGyro;
 import org.usfirst.frc.team537.robot.subsystems.SubsystemLeds;
+import org.usfirst.frc.team537.robot.subsystems.SubsystemLift;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -15,6 +16,7 @@ public class Robot extends IterativeRobot {
 	public static SubsystemGyro subsystemGyro;
 	public static SubsystemLeds subsystemLeds;
 	public static SubsystemDrive subsystemDrive;
+	public static SubsystemLift subsystemLift;
 
 	public static OI oi;
 
@@ -28,6 +30,7 @@ public class Robot extends IterativeRobot {
 		subsystemGyro = new SubsystemGyro();
 		subsystemLeds = new SubsystemLeds();
 		subsystemDrive = new SubsystemDrive();
+		subsystemLift = new SubsystemLift();
 
 		// OI.
 		oi = new OI();
