@@ -1,7 +1,5 @@
 package org.usfirst.frc.team537.robot.joysticks;
 
-import org.usfirst.frc.team537.robot.joysticks.IJoystick.ValueUsage;
-
 public class JoystickExtreme extends IJoystick {
 	public class Keys {
 		public static final int INDEX_TRIGGER = 1;
@@ -31,13 +29,10 @@ public class JoystickExtreme extends IJoystick {
 		add("DriveStrafe", new ValueUsage(Axis.STICK_X, false));
 		add("DriveForward", new ValueUsage(Axis.STICK_Y, true));
 		add("DriveLock", new ValueUsage(Keys.INDEX_TRIGGER, false));
-		add("Pivot0", new ValueUsage(Keys.STICK_5, false));
-		add("Pivot90", new ValueUsage(Keys.STICK_6, false));
-		add("Pivot180", new ValueUsage(Keys.STICK_4, false));
-		add("Pivot270", new ValueUsage(Keys.STICK_3, false));
-		add("Speed", new ValueUsage(Keys.BASE_8, false));
-		add("Rate", new ValueUsage(Keys.BASE_10, false));
-		add("Dist", new ValueUsage(Keys.BASE_12, false));
+		add("Pivot", new ValueUsage(Keys.THUMB_TRIGGER, false));
+
+		add("Reset1", new ValueUsage(Keys.BASE_7, false));
+		add("Reset2", new ValueUsage(Keys.BASE_11, false));
 	}
 	
 	@Override

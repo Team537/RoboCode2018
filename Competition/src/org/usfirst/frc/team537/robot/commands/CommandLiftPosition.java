@@ -4,9 +4,12 @@ import org.usfirst.frc.team537.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class CommandLiftDefault extends Command {
-	public CommandLiftDefault() {
+public class CommandLiftPosition extends Command {
+	private double position;
+	
+	public CommandLiftPosition(double position) {
 		requires(Robot.subsystemLift);
+		this.position = position;
 	}
 
 	@Override
@@ -16,6 +19,7 @@ public class CommandLiftDefault extends Command {
 
 	@Override
 	protected void execute() {
+		Robot.subsystemLift.setPosition(position);
 	}
 	
 	@Override

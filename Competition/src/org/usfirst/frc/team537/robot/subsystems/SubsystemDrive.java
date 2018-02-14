@@ -6,6 +6,10 @@ import java.util.TimerTask;
 import org.usfirst.frc.team537.robot.Robot;
 import org.usfirst.frc.team537.robot.RobotMap;
 import org.usfirst.frc.team537.robot.commands.CommandDriveDefault;
+import org.usfirst.frc.team537.robot.commands.CommandDriveDistance;
+import org.usfirst.frc.team537.robot.commands.CommandDriveRate;
+import org.usfirst.frc.team537.robot.commands.CommandDriveReset;
+import org.usfirst.frc.team537.robot.commands.CommandDriveSpeed;
 import org.usfirst.frc.team537.robot.helpers.Maths;
 import org.usfirst.frc.team537.robot.helpers.PID;
 import org.usfirst.frc.team537.robot.subsystems.SwerveModule.SwerveMode;
@@ -36,6 +40,13 @@ public class SubsystemDrive extends Subsystem implements PIDOutput {
 
 	public SubsystemDrive() {
 		setName("Drive");
+		this.controllerRotate = new PIDController(0.01, 0.0, 0.002, Robot.subsystemGyro, this);
+		this.controllerRotate.setInputRange(0.0, 360.0);
+		this.controllerRotate.setOutputRange(-0.5, 0.5);
+		this.controllerRotate.setPercentTolerance(0.07);
+		this.controllerRotate.setContinuous();
+		this.controllerRotate.disable();
+		
 		Timer timerDashboard = new Timer();
 		timerDashboard.schedule(new TimerTask() {
 			@Override
@@ -47,12 +58,10 @@ public class SubsystemDrive extends Subsystem implements PIDOutput {
 
 	@Override
 	protected void initDefaultCommand() {
-		this.controllerRotate = new PIDController(0.01, 0.0, 0.002, Robot.subsystemGyro, Robot.subsystemDrive);
-		this.controllerRotate.setInputRange(0.0, 360.0);
-		this.controllerRotate.setOutputRange(-0.5, 0.5);
-		this.controllerRotate.setPercentTolerance(0.07);
-		this.controllerRotate.setContinuous();
-		this.controllerRotate.disable();
+		SmartDashboard.putData("Drive Reset", new CommandDriveReset());
+		SmartDashboard.putData("Test Speed", new CommandDriveSpeed(270.0, 0.23, 2.0));
+		SmartDashboard.putData("Test Rate", new CommandDriveRate(45.0, 333.0, 3.0));
+		SmartDashboard.putData("Test Dist", new CommandDriveDistance(90.0, 1.2));
 		
 		setDefaultCommand(new CommandDriveDefault());
 	}
@@ -116,6 +125,10 @@ public class SubsystemDrive extends Subsystem implements PIDOutput {
 	public void setTarget(double gyro, double angle, double forward) {
 		double f = Maths.normalizeAngle(angle - gyro);
 		
+		if (!isAtAngle(8.0)) {
+			forward = 0.0;
+		}
+		
 		frontRight.setTarget(f, forward, false);
 		frontLeft.setTarget(f, forward, false);
 		backLeft.setTarget(f, forward, false);
@@ -141,6 +154,13 @@ public class SubsystemDrive extends Subsystem implements PIDOutput {
 		controllerRotate.reset();
 		controllerRotate.setSetpoint(setpoint);
 		controllerRotate.enable();
+	}
+	
+	public void resetAngleReading() {
+		backLeft.resetAngleReading();
+		backRight.resetAngleReading();
+		frontLeft.resetAngleReading();
+		frontRight.resetAngleReading();
 	}
 
 	public boolean isAtTarget() {

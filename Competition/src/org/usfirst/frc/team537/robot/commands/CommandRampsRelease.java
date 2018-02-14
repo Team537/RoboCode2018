@@ -4,18 +4,22 @@ import org.usfirst.frc.team537.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class CommandLiftDefault extends Command {
-	public CommandLiftDefault() {
-		requires(Robot.subsystemLift);
+public class CommandRampsRelease extends Command {
+	private double speed;
+	
+	public CommandRampsRelease(double speed) {
+		requires(Robot.subsystemRamps);
+		this.speed = speed;
 	}
 
 	@Override
 	protected void initialize() {
-		Robot.subsystemLift.reset();
+		Robot.subsystemRamps.reset();
 	}
 
 	@Override
 	protected void execute() {
+		Robot.subsystemRamps.setRelease(speed);
 	}
 	
 	@Override
@@ -25,7 +29,7 @@ public class CommandLiftDefault extends Command {
 
 	@Override
 	protected void end() {
-		Robot.subsystemLift.stop();
+		Robot.subsystemRamps.stop();
 	}
 
 	@Override

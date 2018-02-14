@@ -1,11 +1,7 @@
 package org.usfirst.frc.team537.robot;
 
-import org.usfirst.frc.team537.robot.choosers.ChooserAuto;
-import org.usfirst.frc.team537.robot.subsystems.SubsystemCamera;
-import org.usfirst.frc.team537.robot.subsystems.SubsystemDrive;
-import org.usfirst.frc.team537.robot.subsystems.SubsystemGyro;
-import org.usfirst.frc.team537.robot.subsystems.SubsystemLeds;
-import org.usfirst.frc.team537.robot.subsystems.SubsystemLift;
+import org.usfirst.frc.team537.robot.choosers.*;
+import org.usfirst.frc.team537.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -15,7 +11,9 @@ public class Robot extends IterativeRobot {
 	public static SubsystemCamera subsystemCamera;
 	public static SubsystemGyro subsystemGyro;
 	public static SubsystemLeds subsystemLeds;
+	public static SubsystemCollect subsystemCollect;
 	public static SubsystemDrive subsystemDrive;
+	public static SubsystemRamps subsystemRamps;
 	public static SubsystemLift subsystemLift;
 
 	public static OI oi;
@@ -29,8 +27,10 @@ public class Robot extends IterativeRobot {
 		subsystemCamera = new SubsystemCamera();
 		subsystemGyro = new SubsystemGyro();
 		subsystemLeds = new SubsystemLeds();
+	//	subsystemCollect = new SubsystemCollect();
 		subsystemDrive = new SubsystemDrive();
-		subsystemLift = new SubsystemLift();
+	//	subsystemRamps = new SubsystemRamps();
+	//	subsystemLift = new SubsystemLift();
 
 		// OI.
 		oi = new OI();

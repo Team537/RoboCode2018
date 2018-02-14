@@ -4,14 +4,14 @@ import org.usfirst.frc.team537.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class CommandLiftDefault extends Command {
-	public CommandLiftDefault() {
-		requires(Robot.subsystemLift);
+public class CommandCollectDefault extends Command {
+	public CommandCollectDefault() {
+		requires(Robot.subsystemCollect);
 	}
 
 	@Override
 	protected void initialize() {
-		Robot.subsystemLift.reset();
+		Robot.subsystemCollect.reset();
 	}
 
 	@Override
@@ -25,7 +25,7 @@ public class CommandLiftDefault extends Command {
 
 	@Override
 	protected void end() {
-		Robot.subsystemLift.stop();
+		Robot.subsystemCollect.stop();
 	}
 
 	@Override

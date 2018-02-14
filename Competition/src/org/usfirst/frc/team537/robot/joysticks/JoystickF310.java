@@ -28,12 +28,7 @@ public class JoystickF310 extends IJoystick {
 		add("DriveRotation", new ValueUsage(Axis.RIGHT_X, false));
 		add("DriveStrafe", new ValueUsage(Axis.LEFT_X, false));
 		add("DriveForward", new ValueUsage(Axis.LEFT_Y, true));
-		add("Pivot0", new ValueUsage(Keys.Y, false));
-		add("Pivot90", new ValueUsage(Keys.B, false));
-		add("Pivot180", new ValueUsage(Keys.A, false));
-		add("Pivot270", new ValueUsage(Keys.X, false));
-		add("Rate", new ValueUsage(Keys.START, false));
-		add("Dist", new ValueUsage(Keys.BACK, false));
+		add("Pivot", new ValueUsage(Keys.BUMPER_RIGHT, false));
 	}
 
 	@Override

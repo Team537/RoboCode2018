@@ -9,15 +9,15 @@ public class AutoCross extends CommandGroup {
 	public AutoCross(int location) {
 		switch(location) {
 			case 1: // Left.
-				addSequential(new CommandDriveDistance(0.0f, 5.0f)); // Forward 5m.
+				addSequential(new CommandDriveDistance(0.0, 3.556)); // Forward 3.556m.
 				break;
 			case 2: // Centre.
-				addSequential(new CommandDriveDistance(0.0f, 2.0f)); // Forward 2m.
-				addSequential(new CommandDriveDistance(3.0f, 0.0f)); // Right 3m.
-				addSequential(new CommandDriveDistance(0.0f, 3.0f)); // Forward 3m.
+				addSequential(new CommandDriveDistance(0.0, 1.0)); // Forward 1m.
+				addSequential(new CommandDriveDistance(3.0, 0.0)); // Right 3m.
+				addSequential(new CommandDriveDistance(0.0, 3.0)); // Forward 3m.
 				break;
 			case 3: // Right.
-				addSequential(new CommandDriveDistance(0.0f, 5.0f)); // Forward 5m.
+				addSequential(new CommandDriveDistance(0.0, 3.556)); // Forward 3.556m.
 				break;
 			default:
 				DriverStation.reportError("Invalid Cross Auto location: " + location, false);

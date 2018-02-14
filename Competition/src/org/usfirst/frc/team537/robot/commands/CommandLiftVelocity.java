@@ -4,9 +4,12 @@ import org.usfirst.frc.team537.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class CommandLiftDefault extends Command {
-	public CommandLiftDefault() {
+public class CommandLiftVelocity extends Command {
+	private double velocity;
+	
+	public CommandLiftVelocity(double velocity) {
 		requires(Robot.subsystemLift);
+		this.velocity = velocity;
 	}
 
 	@Override
@@ -16,6 +19,7 @@ public class CommandLiftDefault extends Command {
 
 	@Override
 	protected void execute() {
+		Robot.subsystemLift.setVelocity(velocity);
 	}
 	
 	@Override

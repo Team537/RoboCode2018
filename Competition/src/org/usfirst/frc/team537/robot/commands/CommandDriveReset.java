@@ -4,28 +4,27 @@ import org.usfirst.frc.team537.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class CommandLiftDefault extends Command {
-	public CommandLiftDefault() {
-		requires(Robot.subsystemLift);
+public class CommandDriveReset extends Command {
+	public CommandDriveReset() {
+		requires(Robot.subsystemDrive);
 	}
 
 	@Override
 	protected void initialize() {
-		Robot.subsystemLift.reset();
 	}
 
 	@Override
 	protected void execute() {
+		Robot.subsystemDrive.resetAngleReading();
 	}
-	
+
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return true;
 	}
 
 	@Override
 	protected void end() {
-		Robot.subsystemLift.stop();
 	}
 
 	@Override
