@@ -3,6 +3,7 @@ package org.usfirst.frc.team537.robot;
 public class RobotMap {
 	public static class Driver {
 		public static final int PRIMARY_PORT = 0;
+		public static final int SECONDARY_PORT = 1;
 	}
 
 	public static class Robot {
@@ -56,5 +57,7 @@ public class RobotMap {
 	}
 
 	public static class Solenoid {
+		public static final int RAMP_DEPLOY_LEFT = 2;
+		public static final int RAMP_DEPLOY_RIGHT = 3;
 	}
 }

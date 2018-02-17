@@ -5,11 +5,11 @@ import org.usfirst.frc.team537.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class CommandRampsRelease extends Command {
-	private double speed;
+	private int ramp;
 	
-	public CommandRampsRelease(double speed) {
+	public CommandRampsRelease(int ramp) {
 		requires(Robot.subsystemRamps);
-		this.speed = speed;
+		this.ramp = ramp;
 	}
 
 	@Override
@@ -19,12 +19,16 @@ public class CommandRampsRelease extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.subsystemRamps.setRelease(speed);
+		if (ramp == 0) {
+			Robot.subsystemRamps.releaseLeft();
+		} else if (ramp == 1) {
+			Robot.subsystemRamps.releaseRight();
+		}
 	}
 	
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return true;
 	}
 
 	@Override
