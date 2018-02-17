@@ -10,15 +10,12 @@ public class OI {
 	public OI() {
 		// Joystick Primary
 		this.joystickPrimary = new JoystickExtreme(RobotMap.Driver.PRIMARY_PORT);
-		
+
 		this.joystickPrimary.getJoystickButton("DriveLock").whileHeld(new CommandDriveLock());
 		this.joystickPrimary.getJoystickButton("Pivot").whileHeld(new CommandDrivePivot());
 
-	//	this.joystickPrimary.getJoystickButton("Reset1").whenPressed(new CommandDriveReset());
-	//	this.joystickPrimary.getJoystickButton("Reset2").whenPressed(new CommandGyroReset());
-
 		// Joystick Secondary
-		this.joystickSecondary = new JoystickBox(RobotMap.Driver.SECONDARY_PORT);
+	/*	this.joystickSecondary = new JoystickBox(RobotMap.Driver.SECONDARY_PORT);
 
 		this.joystickSecondary.getJoystickButton("RampDeployRight").whenPressed(new CommandRampsRelease(1));
 		this.joystickSecondary.getJoystickButton("RampDeployLeft").whenPressed(new CommandRampsRelease(0));
@@ -34,6 +31,6 @@ public class OI {
 		this.joystickSecondary.getJoystickButton("CubeDown").whenPressed(new CommandLiftVelocity(-333.0));
 
 		this.joystickSecondary.getJoystickButton("CubeIn").whenPressed(new CommandCollectSpeed(1.0));
-		this.joystickSecondary.getJoystickButton("CubeOut").whenPressed(new CommandCollectSpeed(-1.0));
+		this.joystickSecondary.getJoystickButton("CubeOut").whenPressed(new CommandCollectSpeed(-1.0));*/
 	}
 }

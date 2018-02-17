@@ -24,9 +24,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		// Subsystems.
-		subsystemCamera = new SubsystemCamera();
+	//	subsystemCamera = new SubsystemCamera();
 		subsystemGyro = new SubsystemGyro();
-		subsystemLeds = new SubsystemLeds();
+	//	subsystemLeds = new SubsystemLeds();
 	//	subsystemCollect = new SubsystemCollect();
 		subsystemDrive = new SubsystemDrive();
 	//	subsystemRamps = new SubsystemRamps();
@@ -48,6 +48,11 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void disabledPeriodic() {
+		Scheduler.getInstance().run();
+	}
+
+	@Override
+	public void robotPeriodic() {
 		Scheduler.getInstance().run();
 	}
 

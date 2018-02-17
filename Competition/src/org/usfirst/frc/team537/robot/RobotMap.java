@@ -7,8 +7,8 @@ public class RobotMap {
 	}
 
 	public static class Robot {
-		public static final double WIDTH = 22.5; // 62.0;
-		public static final double LENGTH = 22.5; // 53.0;
+		public static final double WIDTH = 26.0;
+		public static final double LENGTH = 20.7;
 		public static final double RATIO = Math.sqrt((LENGTH * LENGTH) + (WIDTH * WIDTH));
 
 		public static final double DRIVE_SPEED = 1.0;
@@ -22,19 +22,19 @@ public class RobotMap {
 	public static final int kSlotIdx = 0;
 	public static final int kPIDLoopIdx = 0;
 	public static final int kTimeoutMs = 10;
-	
+	;
 	public static class CAN {
-		public static final int DRIVE_BACK_RIGHT_DRIVE = 1;
-		public static final int DRIVE_BACK_RIGHT_ANGLE = 2;
+		public static final int DRIVE_BACK_RIGHT_DRIVE = 8;
+		public static final int DRIVE_BACK_RIGHT_ANGLE = 7;
 
-		public static final int DRIVE_FRONT_RIGHT_DRIVE = 3;
-		public static final int DRIVE_FRONT_RIGHT_ANGLE = 4;
+		public static final int DRIVE_FRONT_RIGHT_DRIVE = 1;
+		public static final int DRIVE_FRONT_RIGHT_ANGLE = 2;
 
-		public static final int DRIVE_FRONT_LEFT_DRIVE = 5;
-		public static final int DRIVE_FRONT_LEFT_ANGLE = 6;
+		public static final int DRIVE_FRONT_LEFT_DRIVE = 4;
+		public static final int DRIVE_FRONT_LEFT_ANGLE = 3;
 		
-		public static final int DRIVE_BACK_LEFT_DRIVE = 7;
-		public static final int DRIVE_BACK_LEFT_ANGLE = 8;
+		public static final int DRIVE_BACK_LEFT_DRIVE = 5;
+		public static final int DRIVE_BACK_LEFT_ANGLE = 6;
 
 		public static final int LIFT = 9;
 
@@ -52,12 +52,12 @@ public class RobotMap {
 	}
 
 	public static class Analog {
-		public static final int SWITCH_LIMIT_UP = 0;
+		public static final int SWITCH_LIMIT_UP = 2;
 		public static final int SWITCH_LIMIT_BOTTOM = 1;
 	}
 
 	public static class Solenoid {
-		public static final int RAMP_DEPLOY_LEFT = 2;
-		public static final int RAMP_DEPLOY_RIGHT = 3;
+		public static final int RAMP_DEPLOY_LEFT = 1;
+		public static final int RAMP_DEPLOY_RIGHT = 2;
 	}
 }
