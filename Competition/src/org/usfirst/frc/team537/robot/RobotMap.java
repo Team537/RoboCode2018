@@ -22,7 +22,7 @@ public class RobotMap {
 	public static final int kSlotIdx = 0;
 	public static final int kPIDLoopIdx = 0;
 	public static final int kTimeoutMs = 10;
-	;
+	
 	public static class CAN {
 		public static final int DRIVE_BACK_RIGHT_DRIVE = 8;
 		public static final int DRIVE_BACK_RIGHT_ANGLE = 7;
@@ -41,13 +41,12 @@ public class RobotMap {
 		public static final int COLLECT_LEFT = 10;
 		public static final int COLLECT_RIGHT = 11;
 
-		public static final int RAMP_RELEASE = 12;
-		public static final int RAMP_LIFT_LEFT = 13;
-		public static final int RAMP_LIFT_RIGHT = 14;
+		public static final int RAMP_LIFT_LEFT = 12;
+		public static final int RAMP_LIFT_RIGHT = 13;
 	}
 
 	public static class Digital {
-		public static final double DRIVE_M_TO_ENCODER = 13461.0; // Ticks/Metre
+		public static final double DRIVE_M_TO_ENCODER = 12838.916; // Ticks/Metre
 		public static final double LIFT_CM_TO_ENCODER = 256.0; // Ticks/Centimetre
 	}
 
@@ -57,7 +56,7 @@ public class RobotMap {
 	}
 
 	public static class Solenoid {
-		public static final int RAMP_DEPLOY_LEFT = 1;
-		public static final int RAMP_DEPLOY_RIGHT = 2;
+		public static final int RAMP_DEPLOY_LEFT = 2;
+		public static final int RAMP_DEPLOY_RIGHT = 1;
 	}
 }

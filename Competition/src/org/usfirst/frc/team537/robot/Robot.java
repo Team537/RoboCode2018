@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
+// Robot name: Dumbo/Wumbo
 public class Robot extends IterativeRobot {
 	public static SubsystemCamera subsystemCamera;
 	public static SubsystemGyro subsystemGyro;
@@ -29,7 +30,7 @@ public class Robot extends IterativeRobot {
 	//	subsystemLeds = new SubsystemLeds();
 	//	subsystemCollect = new SubsystemCollect();
 		subsystemDrive = new SubsystemDrive();
-	//	subsystemRamps = new SubsystemRamps();
+		subsystemRamps = new SubsystemRamps();
 	//	subsystemLift = new SubsystemLift();
 
 		// OI.

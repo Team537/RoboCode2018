@@ -5,11 +5,7 @@ import java.util.TimerTask;
 
 import org.usfirst.frc.team537.robot.Robot;
 import org.usfirst.frc.team537.robot.RobotMap;
-import org.usfirst.frc.team537.robot.commands.CommandDriveDefault;
-import org.usfirst.frc.team537.robot.commands.CommandDriveDistance;
-import org.usfirst.frc.team537.robot.commands.CommandDriveRate;
-import org.usfirst.frc.team537.robot.commands.CommandDriveReset;
-import org.usfirst.frc.team537.robot.commands.CommandDriveSpeed;
+import org.usfirst.frc.team537.robot.commands.*;
 import org.usfirst.frc.team537.robot.helpers.Maths;
 import org.usfirst.frc.team537.robot.helpers.PID;
 import org.usfirst.frc.team537.robot.subsystems.SwerveModule.SwerveMode;
@@ -22,19 +18,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class SubsystemDrive extends Subsystem implements PIDOutput {
 	private SwerveModule backRight = new SwerveModule(
 		"Back Right", RobotMap.CAN.DRIVE_BACK_RIGHT_ANGLE, RobotMap.CAN.DRIVE_BACK_RIGHT_DRIVE,
-		new PID(6.0, 0.0, 4.0)
+		new PID(6.0, 0.0, 4.2)
 	);
 	private SwerveModule frontRight = new SwerveModule(
 		"Front Right", RobotMap.CAN.DRIVE_FRONT_RIGHT_ANGLE, RobotMap.CAN.DRIVE_FRONT_RIGHT_DRIVE,
-		new PID(6.0, 0.0, 4.0)
+		new PID(6.0, 0.0, 4.2)
 	);
 	private SwerveModule frontLeft = new SwerveModule(
 		"Front Left", RobotMap.CAN.DRIVE_FRONT_LEFT_ANGLE, RobotMap.CAN.DRIVE_FRONT_LEFT_DRIVE,
-		new PID(6.0, 0.0, 4.0)
+		new PID(6.0, 0.0, 4.2)
 	);
 	private SwerveModule backLeft = new SwerveModule(
 		"Back Left", RobotMap.CAN.DRIVE_BACK_LEFT_ANGLE, RobotMap.CAN.DRIVE_BACK_LEFT_DRIVE,
-		new PID(6.0, 0.0, 4.0)
+		new PID(6.0, 0.0, 4.2)
 	);
 	private PIDController controllerRotate;
 
@@ -58,10 +54,10 @@ public class SubsystemDrive extends Subsystem implements PIDOutput {
 
 	@Override
 	protected void initDefaultCommand() {
-	//	SmartDashboard.putData("Drive Reset", new CommandDriveReset());
-	//	SmartDashboard.putData("Test Speed", new CommandDriveSpeed(270.0, 0.23, 2.0));
-	//	SmartDashboard.putData("Test Rate", new CommandDriveRate(45.0, 333.0, 3.0));
-	//	SmartDashboard.putData("Test Dist", new CommandDriveDistance(90.0, 1.2));
+		SmartDashboard.putData("Drive Reset", new CommandDriveReset());
+		SmartDashboard.putData("Test Speed", new CommandDriveSpeed(90.0, 0.3, 2.0));
+		SmartDashboard.putData("Test Rate", new CommandDriveRate(90.0, 800.0, 3.0));
+		SmartDashboard.putData("Test Dist", new CommandDriveDistance(90.0, 3.0));
 		
 		setDefaultCommand(new CommandDriveDefault());
 	}

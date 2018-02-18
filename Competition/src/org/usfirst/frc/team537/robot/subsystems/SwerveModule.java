@@ -53,7 +53,7 @@ public class SwerveModule {
 		setpointDrive = 0.0;
 		swerveMode = SwerveMode.ModeSpeed;
 
-		talonAngle.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, RobotMap.kPIDLoopIdx, RobotMap.kTimeoutMs);
+		talonAngle.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, RobotMap.kPIDLoopIdx, RobotMap.kTimeoutMs);
         talonAngle.config_kP(RobotMap.kPIDLoopIdx, pidAngle.getP(), RobotMap.kTimeoutMs);
         talonAngle.config_kI(RobotMap.kPIDLoopIdx, pidAngle.getI(), RobotMap.kTimeoutMs); 
         talonAngle.config_kD(RobotMap.kPIDLoopIdx, pidAngle.getD(), RobotMap.kTimeoutMs);
@@ -64,6 +64,7 @@ public class SwerveModule {
 		talonDrive.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, RobotMap.kPIDLoopIdx, RobotMap.kTimeoutMs);
 	//	talonDrive.configClosedloopRamp(0.3, RobotMap.kTimeoutMs);
 	//	talonDrive.configOpenloopRamp(0.3, RobotMap.kTimeoutMs);
+		
 	//	resetAngleReading();
 	}
 
@@ -71,9 +72,7 @@ public class SwerveModule {
 	//	SmartDashboard.putNumber(moduleName + " Angle", currentAngle);
 	//	SmartDashboard.putNumber(moduleName + " Angle Setpoint", setpointAngle);
 		
-		if (moduleName == "Back Left") {
-			SmartDashboard.putNumber("Angle Error", Math.abs(setpointAngle - currentAngle));
-		}
+		SmartDashboard.putString(moduleName + " Drive (m)", (currentDrive / RobotMap.Digital.DRIVE_M_TO_ENCODER) + "m");
 		
 	//	SmartDashboard.putNumber(moduleName + " Drive", currentDrive);
 	//	SmartDashboard.putNumber(moduleName + " Drive Setpoint", setpointDrive);

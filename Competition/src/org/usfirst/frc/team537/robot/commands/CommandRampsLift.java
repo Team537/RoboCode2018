@@ -1,17 +1,18 @@
 package org.usfirst.frc.team537.robot.commands;
 
 import org.usfirst.frc.team537.robot.Robot;
+import org.usfirst.frc.team537.robot.subsystems.SubsystemRamps.RampSide;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class CommandRampsLift extends Command {
-	private int ramp;
-	private double velocity;
+	private RampSide side;
+	private double speed;
 	
-	public CommandRampsLift(int ramp, double velocity) {
+	public CommandRampsLift(RampSide side, double speed) {
 		requires(Robot.subsystemRamps);
-		this.ramp = ramp;
-		this.velocity = velocity;
+		this.side = side;
+		this.speed = speed;
 	}
 
 	@Override
@@ -21,11 +22,7 @@ public class CommandRampsLift extends Command {
 
 	@Override
 	protected void execute() {
-		if (ramp == 0) {
-			Robot.subsystemRamps.setLiftLeft(velocity);
-		} else if (ramp == 1) {
-			Robot.subsystemRamps.setLiftRight(velocity);
-		}
+		Robot.subsystemRamps.setLift(side, speed);
 	}
 	
 	@Override

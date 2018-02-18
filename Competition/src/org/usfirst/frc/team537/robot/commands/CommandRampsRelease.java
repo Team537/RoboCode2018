@@ -1,15 +1,16 @@
 package org.usfirst.frc.team537.robot.commands;
 
 import org.usfirst.frc.team537.robot.Robot;
+import org.usfirst.frc.team537.robot.subsystems.SubsystemRamps.RampSide;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class CommandRampsRelease extends Command {
-	private int ramp;
+	private RampSide side;
 	
-	public CommandRampsRelease(int ramp) {
-		requires(Robot.subsystemRamps);
-		this.ramp = ramp;
+	public CommandRampsRelease(RampSide side) {
+	//	requires(Robot.subsystemRamps);
+		this.side = side;
 	}
 
 	@Override
@@ -19,16 +20,12 @@ public class CommandRampsRelease extends Command {
 
 	@Override
 	protected void execute() {
-		if (ramp == 0) {
-			Robot.subsystemRamps.releaseLeft();
-		} else if (ramp == 1) {
-			Robot.subsystemRamps.releaseRight();
-		}
+		Robot.subsystemRamps.release(side);
 	}
 	
 	@Override
 	protected boolean isFinished() {
-		return true;
+		return false;
 	}
 
 	@Override
