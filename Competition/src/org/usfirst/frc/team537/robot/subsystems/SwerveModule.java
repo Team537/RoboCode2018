@@ -64,8 +64,6 @@ public class SwerveModule {
 		talonDrive.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, RobotMap.kPIDLoopIdx, RobotMap.kTimeoutMs);
 	//	talonDrive.configClosedloopRamp(0.3, RobotMap.kTimeoutMs);
 	//	talonDrive.configOpenloopRamp(0.3, RobotMap.kTimeoutMs);
-		
-	//	resetAngleReading();
 	}
 
 	public void dashboard() {

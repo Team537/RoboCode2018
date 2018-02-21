@@ -9,12 +9,9 @@ import org.usfirst.frc.team537.robot.commands.CommandRampsDefault;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Relay.Value;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SubsystemRamps extends Subsystem {
 	public static enum RampSide {
@@ -23,7 +20,7 @@ public class SubsystemRamps extends Subsystem {
 	
 	private Relay deployLeft = new Relay(RobotMap.Solenoid.RAMP_DEPLOY_LEFT);
 	private Relay deployRight = new Relay(RobotMap.Solenoid.RAMP_DEPLOY_RIGHT);
-//	private TalonSRX rampLiftLeft = new TalonSRX(RobotMap.CAN.RAMP_LIFT_LEFT);
+	private TalonSRX rampLiftLeft = new TalonSRX(RobotMap.CAN.RAMP_LIFT_LEFT);
 	private TalonSRX rampLiftRight = new TalonSRX(RobotMap.CAN.RAMP_LIFT_RIGHT);
 	
 	public SubsystemRamps() {
@@ -62,7 +59,7 @@ public class SubsystemRamps extends Subsystem {
 	public void setLift(RampSide side, double speed) {
 		switch (side) {
 		case SideLeft:
-//			rampLiftLeft.set(ControlMode.PercentOutput, speed);
+			rampLiftLeft.set(ControlMode.PercentOutput, speed);
 			break;
 		case SideRight:
 			rampLiftRight.set(ControlMode.PercentOutput, speed);
@@ -75,7 +72,7 @@ public class SubsystemRamps extends Subsystem {
 	}
 	
 	public void stop() {
-//		rampLiftLeft.set(ControlMode.PercentOutput, 0.0);
+		rampLiftLeft.set(ControlMode.PercentOutput, 0.0);
 		rampLiftRight.set(ControlMode.PercentOutput, 0.0);
 		deployLeft.set(Value.kOff);
 		deployRight.set(Value.kOff);

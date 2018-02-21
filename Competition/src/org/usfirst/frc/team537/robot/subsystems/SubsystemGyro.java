@@ -36,6 +36,8 @@ public class SubsystemGyro extends Subsystem implements PIDSource {
 	            SmartDashboard.putNumber("NavX Angle", Maths.roundToPlace(getAngle(), 3));
 			}
 		}, 0, 100);
+		
+		reset();
 	}
 
 	@Override

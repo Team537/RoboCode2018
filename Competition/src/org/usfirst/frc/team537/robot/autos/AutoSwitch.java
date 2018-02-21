@@ -25,7 +25,7 @@ public class AutoSwitch extends CommandGroup {
 		}
 		
 		addSequential(new CommandCollectSpeed(-1.0), 1.8);
-		addParallel(new CommandLiftVelocity(200.0), 2.0f);
+		addParallel(new CommandLiftSpeed(200.0), 2.0f);
 		
 		if (isScaleLeft) { // Switch Left.
 			addSequential(new CommandDriveDistance(2.0, 0.0f)); // Right 2m.

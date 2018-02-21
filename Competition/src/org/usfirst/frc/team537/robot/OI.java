@@ -15,24 +15,23 @@ public class OI {
 		this.joystickPrimary.getJoystickButton("DriveLock").whileHeld(new CommandDriveLock());
 		this.joystickPrimary.getJoystickButton("Pivot").whileHeld(new CommandDrivePivot());
 
-	//	this.joystickPrimary.getJoystickButton("DriveReset").whileHeld(new CommandDriveReset());
+		this.joystickPrimary.getJoystickButton("GyroReset").whileHeld(new CommandGyroReset());
 
 		// Joystick Secondary
 		this.joystickSecondary = new JoystickBox(RobotMap.Driver.SECONDARY_PORT);
 
 		this.joystickSecondary.getJoystickButton("RampDeployRight").whileHeld(new CommandRampsRelease(RampSide.SideRight));
-		this.joystickSecondary.getJoystickButton("RampDownRight").whileHeld(new CommandRampsLift(RampSide.SideRight, -0.3));
-		this.joystickSecondary.getJoystickButton("RampUpRight").whileHeld(new CommandRampsLift(RampSide.SideRight, 0.3));
+		this.joystickSecondary.getJoystickButton("RampDownRight").whileHeld(new CommandRampsLift(RampSide.SideRight, -0.7));
+		this.joystickSecondary.getJoystickButton("RampUpRight").whileHeld(new CommandRampsLift(RampSide.SideRight, 1.0));
 
 		this.joystickSecondary.getJoystickButton("RampDeployLeft").whileHeld(new CommandRampsRelease(RampSide.SideLeft));
-	//	this.joystickSecondary.getJoystickButton("RampDownLeft").whileHeld(new CommandRampsLift(RampSide.SideLeft, -333.0));
-	//	this.joystickSecondary.getJoystickButton("RampUpLeft").whileHeld(new CommandRampsLift(RampSide.SideLeft, 333.0));
+		this.joystickSecondary.getJoystickButton("RampDownLeft").whileHeld(new CommandRampsLift(RampSide.SideLeft, -0.7));
+		this.joystickSecondary.getJoystickButton("RampUpLeft").whileHeld(new CommandRampsLift(RampSide.SideLeft, 1.0));
 		
+		this.joystickSecondary.getJoystickButton("CubeUp").whenPressed(new CommandLiftSpeed(0.4));
+		this.joystickSecondary.getJoystickButton("CubeDown").whenPressed(new CommandLiftSpeed(-0.4));
 
-		/*this.joystickSecondary.getJoystickButton("CubeUp").whenPressed(new CommandLiftVelocity(333.0));
-		this.joystickSecondary.getJoystickButton("CubeDown").whenPressed(new CommandLiftVelocity(-333.0));
-
-		this.joystickSecondary.getJoystickButton("CubeIn").whenPressed(new CommandCollectSpeed(1.0));
-		this.joystickSecondary.getJoystickButton("CubeOut").whenPressed(new CommandCollectSpeed(-1.0));*/
+		this.joystickSecondary.getJoystickButton("CubeIn").whenPressed(new CommandCollectSpeed(0.3));
+		this.joystickSecondary.getJoystickButton("CubeOut").whenPressed(new CommandCollectSpeed(-0.3));
 	}
 }

@@ -50,11 +50,13 @@ public class SubsystemDrive extends Subsystem implements PIDOutput {
 				dashboard();
 			}
 		}, 0, 100);
+
+		resetAngleReading();
 	}
 
 	@Override
 	protected void initDefaultCommand() {
-		SmartDashboard.putData("Drive Reset", new CommandDriveReset());
+	//	SmartDashboard.putData("Drive Reset", new CommandDriveReset());
 		SmartDashboard.putData("Test Speed", new CommandDriveSpeed(90.0, 0.3, 2.0));
 		SmartDashboard.putData("Test Rate", new CommandDriveRate(90.0, 800.0, 3.0));
 		SmartDashboard.putData("Test Dist", new CommandDriveDistance(90.0, 3.0));

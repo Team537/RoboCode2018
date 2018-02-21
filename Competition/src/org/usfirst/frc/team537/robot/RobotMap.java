@@ -12,8 +12,6 @@ public class RobotMap {
 		public static final double RATIO = Math.sqrt((LENGTH * LENGTH) + (WIDTH * WIDTH));
 
 		public static final double DRIVE_SPEED = 1.0;
-		
-		public static final double LIFT_HEIGHT_CM = 76.0;
 	}
 
 	public static class PWM {
@@ -47,12 +45,9 @@ public class RobotMap {
 
 	public static class Digital {
 		public static final double DRIVE_M_TO_ENCODER = 12838.916; // Ticks/Metre
-		public static final double LIFT_CM_TO_ENCODER = 256.0; // Ticks/Centimetre
 	}
 
 	public static class Analog {
-		public static final int SWITCH_LIMIT_UP = 2;
-		public static final int SWITCH_LIMIT_BOTTOM = 1;
 	}
 
 	public static class Solenoid {

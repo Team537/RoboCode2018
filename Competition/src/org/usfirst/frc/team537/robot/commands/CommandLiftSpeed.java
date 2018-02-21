@@ -4,12 +4,12 @@ import org.usfirst.frc.team537.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class CommandLiftPosition extends Command {
-	private double position;
+public class CommandLiftSpeed extends Command {
+	private double speed;
 	
-	public CommandLiftPosition(double position) {
+	public CommandLiftSpeed(double speed) {
 		requires(Robot.subsystemLift);
-		this.position = position;
+		this.speed = speed;
 	}
 
 	@Override
@@ -19,7 +19,7 @@ public class CommandLiftPosition extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.subsystemLift.setPosition(position);
+		Robot.subsystemLift.setSpeed(speed);
 	}
 	
 	@Override

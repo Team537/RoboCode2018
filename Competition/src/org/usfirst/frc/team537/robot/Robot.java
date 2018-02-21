@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 public class Robot extends IterativeRobot {
 	public static SubsystemCamera subsystemCamera;
 	public static SubsystemGyro subsystemGyro;
-	public static SubsystemLeds subsystemLeds;
 	public static SubsystemCollect subsystemCollect;
 	public static SubsystemDrive subsystemDrive;
 	public static SubsystemRamps subsystemRamps;
@@ -25,13 +24,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		// Subsystems.
-	//	subsystemCamera = new SubsystemCamera();
+		subsystemCamera = new SubsystemCamera();
 		subsystemGyro = new SubsystemGyro();
-	//	subsystemLeds = new SubsystemLeds();
-	//	subsystemCollect = new SubsystemCollect();
+		subsystemCollect = new SubsystemCollect();
 		subsystemDrive = new SubsystemDrive();
 		subsystemRamps = new SubsystemRamps();
-	//	subsystemLift = new SubsystemLift();
+		subsystemLift = new SubsystemLift();
 
 		// OI.
 		oi = new OI();
