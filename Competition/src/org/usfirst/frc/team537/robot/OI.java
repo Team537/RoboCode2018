@@ -28,10 +28,10 @@ public class OI {
 		this.joystickSecondary.getJoystickButton("RampDownLeft").whileHeld(new CommandRampsLift(RampSide.SideLeft, -0.7));
 		this.joystickSecondary.getJoystickButton("RampUpLeft").whileHeld(new CommandRampsLift(RampSide.SideLeft, 1.0));
 		
-		this.joystickSecondary.getJoystickButton("CubeUp").whenPressed(new CommandLiftSpeed(0.4));
-		this.joystickSecondary.getJoystickButton("CubeDown").whenPressed(new CommandLiftSpeed(-0.4));
+		this.joystickSecondary.getJoystickButton("CubeUp").whileHeld(new CommandLiftSpeed(1.0));
+		this.joystickSecondary.getJoystickButton("CubeDown").whileHeld(new CommandLiftSpeed(-0.6));
 
-		this.joystickSecondary.getJoystickButton("CubeIn").whenPressed(new CommandCollectSpeed(0.3));
-		this.joystickSecondary.getJoystickButton("CubeOut").whenPressed(new CommandCollectSpeed(-0.3));
+		this.joystickSecondary.getJoystickButton("CubeIn").whileHeld(new CommandCollectSpeed(-0.7));
+		this.joystickSecondary.getJoystickButton("CubeOut").whileHeld(new CommandCollectSpeed(0.4));
 	}
 }

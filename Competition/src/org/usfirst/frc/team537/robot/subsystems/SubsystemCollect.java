@@ -5,12 +5,13 @@ import org.usfirst.frc.team537.robot.commands.CommandCollectDefault;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class SubsystemCollect extends Subsystem {
-	private TalonSRX talonCollectLeft = new TalonSRX(RobotMap.CAN.COLLECT_LEFT);
-	private TalonSRX talonCollectRight = new TalonSRX(RobotMap.CAN.COLLECT_RIGHT);
+	private VictorSPX talonCollectLeft = new VictorSPX(RobotMap.CAN.COLLECT_LEFT);
+	private VictorSPX talonCollectRight = new VictorSPX(RobotMap.CAN.COLLECT_RIGHT);
 	
 	public SubsystemCollect() {
 		setName("Collect");

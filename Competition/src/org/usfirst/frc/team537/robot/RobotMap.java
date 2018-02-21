@@ -34,13 +34,13 @@ public class RobotMap {
 		public static final int DRIVE_BACK_LEFT_DRIVE = 5;
 		public static final int DRIVE_BACK_LEFT_ANGLE = 6;
 
-		public static final int LIFT = 9;
+		public static final int LIFT = 13;
 
-		public static final int COLLECT_LEFT = 10;
-		public static final int COLLECT_RIGHT = 11;
+		public static final int COLLECT_LEFT = 11;
+		public static final int COLLECT_RIGHT = 12;
 
-		public static final int RAMP_LIFT_LEFT = 12;
-		public static final int RAMP_LIFT_RIGHT = 13;
+		public static final int RAMP_LIFT_LEFT = 14;
+		public static final int RAMP_LIFT_RIGHT = 10;
 	}
 
 	public static class Digital {

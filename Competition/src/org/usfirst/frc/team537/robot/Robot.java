@@ -24,7 +24,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		// Subsystems.
-		subsystemCamera = new SubsystemCamera();
+	//	subsystemCamera = new SubsystemCamera();
 		subsystemGyro = new SubsystemGyro();
 		subsystemCollect = new SubsystemCollect();
 		subsystemDrive = new SubsystemDrive();
