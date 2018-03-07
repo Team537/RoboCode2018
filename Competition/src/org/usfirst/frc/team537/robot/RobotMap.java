@@ -5,6 +5,14 @@ public class RobotMap {
 		public static final int PRIMARY_PORT = 0;
 		public static final int SECONDARY_PORT = 1;
 	}
+	
+	public static class Subsystems {
+		public static final boolean CAMERA = false;
+		public static final boolean COLLECT = false;
+		public static final boolean LEDS = true;
+		public static final boolean LIFT = false;
+		public static final boolean RAMPS = false;
+	}
 
 	public static class Robot {
 		public static final double WIDTH = 26.0;

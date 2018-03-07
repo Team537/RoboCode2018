@@ -20,18 +20,24 @@ public class OI {
 		// Joystick Secondary
 		this.joystickSecondary = new JoystickBox(RobotMap.Driver.SECONDARY_PORT);
 
-		this.joystickSecondary.getJoystickButton("RampDeployRight").whileHeld(new CommandRampsRelease(RampSide.SideRight));
-		this.joystickSecondary.getJoystickButton("RampDownRight").whileHeld(new CommandRampsLift(RampSide.SideRight, -0.7));
-		this.joystickSecondary.getJoystickButton("RampUpRight").whileHeld(new CommandRampsLift(RampSide.SideRight, 1.0));
+		if (RobotMap.Subsystems.RAMPS) {
+			this.joystickSecondary.getJoystickButton("RampDeployRight").whileHeld(new CommandRampsRelease(RampSide.SideRight));
+			this.joystickSecondary.getJoystickButton("RampDownRight").whileHeld(new CommandRampsLift(RampSide.SideRight, -0.7));
+			this.joystickSecondary.getJoystickButton("RampUpRight").whileHeld(new CommandRampsLift(RampSide.SideRight, 1.0));
+	
+			this.joystickSecondary.getJoystickButton("RampDeployLeft").whileHeld(new CommandRampsRelease(RampSide.SideLeft));
+			this.joystickSecondary.getJoystickButton("RampDownLeft").whileHeld(new CommandRampsLift(RampSide.SideLeft, -0.7));
+			this.joystickSecondary.getJoystickButton("RampUpLeft").whileHeld(new CommandRampsLift(RampSide.SideLeft, 1.0));
+		}
 
-		this.joystickSecondary.getJoystickButton("RampDeployLeft").whileHeld(new CommandRampsRelease(RampSide.SideLeft));
-		this.joystickSecondary.getJoystickButton("RampDownLeft").whileHeld(new CommandRampsLift(RampSide.SideLeft, -0.7));
-		this.joystickSecondary.getJoystickButton("RampUpLeft").whileHeld(new CommandRampsLift(RampSide.SideLeft, 1.0));
-		
-		this.joystickSecondary.getJoystickButton("CubeUp").whileHeld(new CommandLiftSpeed(1.0));
-		this.joystickSecondary.getJoystickButton("CubeDown").whileHeld(new CommandLiftSpeed(-0.6));
+		if (RobotMap.Subsystems.LIFT) {
+			this.joystickSecondary.getJoystickButton("CubeUp").whileHeld(new CommandLiftSpeed(1.0));
+			this.joystickSecondary.getJoystickButton("CubeDown").whileHeld(new CommandLiftSpeed(-0.6));
+		}
 
-		this.joystickSecondary.getJoystickButton("CubeIn").whileHeld(new CommandCollectSpeed(-0.7));
-		this.joystickSecondary.getJoystickButton("CubeOut").whileHeld(new CommandCollectSpeed(0.4));
+		if (RobotMap.Subsystems.COLLECT) {
+			this.joystickSecondary.getJoystickButton("CubeIn").whileHeld(new CommandCollectSpeed(-0.7));
+			this.joystickSecondary.getJoystickButton("CubeOut").whileHeld(new CommandCollectSpeed(0.4));
+		}
 	}
 }

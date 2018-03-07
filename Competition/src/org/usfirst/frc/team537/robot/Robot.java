@@ -7,10 +7,11 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 
-// Robot name: Dumbo/Wumbo
+// Robot name: Dumbo
 public class Robot extends IterativeRobot {
 	public static SubsystemCamera subsystemCamera;
 	public static SubsystemGyro subsystemGyro;
+	public static SubsystemLeds subsystemLeds;
 	public static SubsystemCollect subsystemCollect;
 	public static SubsystemDrive subsystemDrive;
 	public static SubsystemRamps subsystemRamps;
@@ -24,12 +25,23 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		// Subsystems.
-	//	subsystemCamera = new SubsystemCamera();
+		if (RobotMap.Subsystems.CAMERA) {
+			subsystemCamera = new SubsystemCamera();
+		}
+		if (RobotMap.Subsystems.LEDS) {
+			subsystemLeds = new SubsystemLeds();
+		}
+		if (RobotMap.Subsystems.COLLECT) {
+			subsystemCollect = new SubsystemCollect();
+		}
+		if (RobotMap.Subsystems.RAMPS) {
+			subsystemRamps = new SubsystemRamps();
+		}
+		if (RobotMap.Subsystems.LIFT) {
+			subsystemLift = new SubsystemLift();
+		}
 		subsystemGyro = new SubsystemGyro();
-		subsystemCollect = new SubsystemCollect();
 		subsystemDrive = new SubsystemDrive();
-		subsystemRamps = new SubsystemRamps();
-		subsystemLift = new SubsystemLift();
 
 		// OI.
 		oi = new OI();
