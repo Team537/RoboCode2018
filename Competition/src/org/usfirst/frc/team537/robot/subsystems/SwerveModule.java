@@ -52,7 +52,7 @@ public class SwerveModule {
 		setpointAngle = 0.0;
 		setpointDrive = 0.0;
 		swerveMode = SwerveMode.ModeSpeed;
-
+		
 		talonAngle.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, RobotMap.kPIDLoopIdx, RobotMap.kTimeoutMs);
         talonAngle.config_kP(RobotMap.kPIDLoopIdx, pidAngle.getP(), RobotMap.kTimeoutMs);
         talonAngle.config_kI(RobotMap.kPIDLoopIdx, pidAngle.getI(), RobotMap.kTimeoutMs); 
@@ -133,6 +133,9 @@ public class SwerveModule {
 	}
 
 	public void reset() {
+	//	int absolutePosition = talonAngle.getSensorCollection().getPulseWidthPosition() & 0xFFF; 
+	//	talonAngle.getSensorCollection().setQuadraturePosition(absolutePosition, RobotMap.kTimeoutMs); // talonAngle.setEncPosition(absolutePosition);
+		
 		talonDrive.setSelectedSensorPosition(0, RobotMap.kPIDLoopIdx, RobotMap.kTimeoutMs);
 		swerveMode = SwerveMode.ModeSpeed;
 	}

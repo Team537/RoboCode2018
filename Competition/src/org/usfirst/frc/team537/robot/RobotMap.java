@@ -7,8 +7,8 @@ public class RobotMap {
 	}
 	
 	public static class Subsystems {
-		public static final boolean CAMERA = false;
-		public static final boolean COLLECT = false;
+		public static final boolean CAMERA = true;
+		public static final boolean COLLECT = true;
 		public static final boolean LEDS = true;
 		public static final boolean LIFT = false;
 		public static final boolean RAMPS = false;

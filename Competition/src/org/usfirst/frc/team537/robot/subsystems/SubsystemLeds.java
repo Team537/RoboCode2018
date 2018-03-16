@@ -22,8 +22,8 @@ public class SubsystemLeds extends Subsystem {
 	}
 
 	public void setColour(Colour colour) {
-		canifier.setLEDOutput(colour.getR(), LEDChannel.LEDChannelB);
-		canifier.setLEDOutput(colour.getG(), LEDChannel.LEDChannelA);
+		canifier.setLEDOutput(colour.getR(), LEDChannel.LEDChannelA);
+		canifier.setLEDOutput(colour.getG(), LEDChannel.LEDChannelB);
 		canifier.setLEDOutput(colour.getB(), LEDChannel.LEDChannelC);
 	}
 	

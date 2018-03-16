@@ -4,6 +4,7 @@ import org.usfirst.frc.team537.robot.RobotMap;
 import org.usfirst.frc.team537.robot.commands.CommandCollectDefault;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
