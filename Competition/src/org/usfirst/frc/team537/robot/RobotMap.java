@@ -52,7 +52,7 @@ public class RobotMap {
 	}
 
 	public static class Digital {
-		public static final double DRIVE_M_TO_ENCODER = 12838.916; // Ticks/Metre
+		public static final double DRIVE_M_TO_ENCODER = 1984.4878; // Ticks/Metre
 	}
 
 	public static class Analog {

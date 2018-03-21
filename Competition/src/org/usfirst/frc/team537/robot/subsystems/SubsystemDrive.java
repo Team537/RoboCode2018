@@ -51,15 +51,15 @@ public class SubsystemDrive extends Subsystem implements PIDOutput {
 			}
 		}, 0, 100);
 
-		resetAngleReading();
+	//	resetAngleReading();
 	}
 
 	@Override
 	protected void initDefaultCommand() {
 		SmartDashboard.putData("Drive Reset", new CommandDriveReset());
-		SmartDashboard.putData("Test Speed", new CommandDriveSpeed(90.0, 0.3, 2.0));
-		SmartDashboard.putData("Test Rate", new CommandDriveRate(90.0, 800.0, 3.0));
-		SmartDashboard.putData("Test Dist", new CommandDriveDistance(90.0, 3.0));
+		SmartDashboard.putData("Test Speed", new CommandDriveSpeed(0.0, 0.3, 2.3));
+		SmartDashboard.putData("Test Rate", new CommandDriveRate(0.0, 800.0, 3.5));
+		SmartDashboard.putData("Test Dist", new CommandDriveDistance(0.0, 3.1415));
 		
 		setDefaultCommand(new CommandDriveDefault());
 	}
@@ -108,7 +108,7 @@ public class SubsystemDrive extends Subsystem implements PIDOutput {
 			brs /= maxSpeed;
 		}
 		
-		if ((driverControl && !isAtAngle(100.0)) || (!isDriverControl() && !isAtAngle(8.0))) {
+		if ((driverControl && !isAtAngle(45.0)) || (!isDriverControl() && !isAtAngle(8.0))) {
 			frs = 0.0;
 			fls = 0.0;
 			bls = 0.0;
@@ -172,6 +172,11 @@ public class SubsystemDrive extends Subsystem implements PIDOutput {
 	
 	public boolean isDriverControl() {
 		return frontRight.getMode() == SwerveMode.ModeSpeed;
+	}
+	
+	public double getAverageSpeed()
+	{
+		return (frontRight.getSetpointDrive() + frontLeft.getSetpointDrive() + backLeft.getSetpointDrive() + backRight.getSetpointDrive()) / 4.0;
 	}
 	
 	public void reset() {

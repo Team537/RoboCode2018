@@ -2,10 +2,15 @@ package org.usfirst.frc.team537.robot.commands;
 
 import org.usfirst.frc.team537.robot.Robot;
 import org.usfirst.frc.team537.robot.helpers.Colour;
+import org.usfirst.frc.team537.robot.helpers.Maths;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CommandLedsDefault extends Command {
+	private double lastTime;
+	private double time;
+	
 	public CommandLedsDefault() {
 		requires(Robot.subsystemLeds);
 	}
@@ -16,7 +21,11 @@ public class CommandLedsDefault extends Command {
 
 	@Override
 	protected void execute() {
-		double time = (double) System.currentTimeMillis() / 1000.0;
+		double newTime = (double) System.currentTimeMillis() / 1000.0;
+		double delta = newTime - lastTime;
+		lastTime = newTime;
+		time += delta * (1.0 + (5.0 * Maths.clamp(Math.abs(Robot.subsystemDrive.getAverageSpeed()), 0.0, 1.0)));
+		
 		double r = 2.0 * Math.sin(time);
 		double b = 1.5 * Math.cos(time);
 		double g = 1.0 - (2.0f * (r + b));
