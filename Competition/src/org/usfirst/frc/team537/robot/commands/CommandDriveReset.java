@@ -15,7 +15,7 @@ public class CommandDriveReset extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.subsystemDrive.resetAngleReading();
+		Robot.subsystemDrive.recalibrate();
 		Robot.subsystemGyro.reset();
 	}
 

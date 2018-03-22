@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class ChooserAuto {
 	private SendableChooser<String> stationChooser;
 	private SendableChooser<String> modeChooser;
+	private SendableChooser<Double> delayChooser;
 	
 	public ChooserAuto() {
 		stationChooser = new SendableChooser<>();
@@ -22,13 +23,20 @@ public class ChooserAuto {
 		CreateStationChoice("Blue", 1);
 		CreateStationChoice("Blue", 2);
 		CreateStationChoice("Blue", 3);
-		SmartDashboard.putData("Station", stationChooser);
+		SmartDashboard.putData("Auto Station", stationChooser);
 
 		modeChooser = new SendableChooser<>();
 		modeChooser.addObject("Cross", "C");
 		modeChooser.addObject("Switch", "T");
 		modeChooser.addDefault("Testing", "Z");
-		SmartDashboard.putData("Auto", modeChooser);
+		SmartDashboard.putData("Auto Mode", modeChooser);
+		
+		delayChooser = new SendableChooser<>();
+		delayChooser.addDefault("0.0s", 0.0);
+		for (double i = 1.0; i <= 7.0; i += 1.0) {
+			delayChooser.addObject(i + "s", i);
+		}
+		SmartDashboard.putData("Auto Delay", delayChooser);
 	}
 
 	private void CreateStationChoice(String alliance, int location) {
@@ -53,6 +61,7 @@ public class ChooserAuto {
 	public Command getSelected() {
 		String stationLocation = fixNull(stationChooser.getSelected(), "R1").toUpperCase();
 		char mode = fixNull(modeChooser.getSelected(), "C").toUpperCase().charAt(0);
+		double delay = delayChooser.getSelected();
 		String gameData = fixNull(DriverStation.getInstance().getGameSpecificMessage(), "RRR").toUpperCase();
 		
 	//	char alliance = allianceLocation.charAt(0);
@@ -60,9 +69,9 @@ public class ChooserAuto {
 		boolean isSwitchLeft = gameData.charAt(0) == 'L';
 
 		if (mode == 'C') {
-			return new AutoCross(location);
+			return new AutoCross(location, isSwitchLeft, delay);
 		} else if (mode == 'T') {
-			return new AutoSwitch(location, isSwitchLeft);
+			return new AutoSwitch(location, isSwitchLeft, delay);
 		} else if (mode == 'Z') {
 			return new AutoTesting();
 		}

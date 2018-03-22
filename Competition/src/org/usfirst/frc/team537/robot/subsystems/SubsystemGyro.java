@@ -27,8 +27,6 @@ public class SubsystemGyro extends Subsystem implements PIDSource {
 			DriverStation.reportError("Error instantiating navX MXP: " + e.getMessage(), true);
 		}
 		
-	//	ahrs.reset();
-
 		Timer timerDashboard = new Timer();
 		timerDashboard.schedule(new TimerTask() {
 			@Override

@@ -1,23 +1,29 @@
 package org.usfirst.frc.team537.robot.autos;
 
 import org.usfirst.frc.team537.robot.commands.*;
+import org.usfirst.frc.team537.robot.helpers.Colour;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class AutoSwitch extends CommandGroup {
-	public AutoSwitch(int location, boolean isScaleLeft) {
+	public AutoSwitch(int location, boolean isSwitchLeft, double delay) {
+		addSequential(new CommandNothing(delay));
+		
 		switch(location) {
 			case 1: // Left.
-				addSequential(new CommandDriveDistance(0.0, 0.3)); // Forward 30cm.
-				addSequential(new CommandDriveDistance(-2.0, 0.0)); // Left 2m.
+				DriverStation.reportWarning("AutoSwitch left!", false);
+				addSequential(new CommandDriveRate(0.0, 0.4, 0.9)); // Forward 30cm.
+				addSequential(new CommandDriveRate(270.0, 0.6, 3.33)); // Left 2m.
 				break;
 			case 2: // Centre.
-				addSequential(new CommandDriveDistance(0.0, 0.3)); // Forward 30cm.
+				DriverStation.reportWarning("AutoSwitch centre!", false);
+				addSequential(new CommandDriveRate(0.0, 0.4, 0.9)); // Forward 30cm.
 				break;
 			case 3: // Right.
-				addSequential(new CommandDriveDistance(0.0, 0.3)); // Forward 30cm.
-				addSequential(new CommandDriveDistance(2.0, 0.0)); // Right 2m.
+				DriverStation.reportWarning("AutoSwitch right!", false);
+				addSequential(new CommandDriveRate(0.0, 0.4, 0.9)); // Forward 30cm.
+				addSequential(new CommandDriveRate(90.0, 0.6, 3.33)); // Right 2m.
 				break;
 			default:
 				DriverStation.reportError("Invalid Cross Auto location: " + location, false);
@@ -27,14 +33,16 @@ public class AutoSwitch extends CommandGroup {
 		addSequential(new CommandCollectSpeed(-1.0), 1.8);
 		addParallel(new CommandLiftSpeed(200.0), 2.0f);
 		
-		if (isScaleLeft) { // Switch Left.
-			addSequential(new CommandDriveDistance(2.0, 0.0f)); // Right 2m.
-			addSequential(new CommandDriveDistance(0.0, 0.9f)); // Forward 90cm.
+		if (isSwitchLeft) { // Switch Left.
+			addSequential(new CommandDriveRate(90.0, 0.6, 3.33)); // Right 2m.
+			addSequential(new CommandDriveRate(0.0, 0.4, 2.8)); // Forward 90cm.
 			addSequential(new CommandCollectSpeed(1.0), 1.5);
 		} else { // Switch Right.
-			addSequential(new CommandDriveDistance(-2.0, 0.0)); // Left 2m.
-			addSequential(new CommandDriveDistance(0.0, 0.9)); // Forward 90cm.
+			addSequential(new CommandDriveRate(270.0, 0.6, 3.33)); // Left 2m.
+			addSequential(new CommandDriveRate(0.0, 0.4, 2.8)); // Forward 90cm.
 			addSequential(new CommandCollectSpeed(1.0), 1.5);
 		}
+		
+	//	addSequential(new CommandLedsColour(new Colour("#0000ff"), 10.0));
 	}
 }

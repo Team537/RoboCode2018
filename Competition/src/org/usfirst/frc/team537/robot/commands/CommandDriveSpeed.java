@@ -11,6 +11,7 @@ public class CommandDriveSpeed extends Command {
 	private double speed;
 	private double timeout;
 	private Timer timer;
+	private boolean moving;
 	
 	public CommandDriveSpeed(double angle, double speed, double timeout) {
 		requires(Robot.subsystemDrive);
@@ -18,6 +19,7 @@ public class CommandDriveSpeed extends Command {
 		this.speed = speed;
 		this.timeout = timeout;
 		this.timer = new Timer();
+		this.moving = false;
 	}
 
 	@Override
@@ -25,24 +27,33 @@ public class CommandDriveSpeed extends Command {
 		Robot.subsystemDrive.reset();
 		Robot.subsystemDrive.setMode(SwerveModule.SwerveMode.ModeSpeed);
 		timer.reset();
-		timer.start();
+		moving = false;
 	}
 
 	@Override
 	protected void execute() {
 		double gyro = Robot.subsystemGyro.getAngle();
-		Robot.subsystemDrive.setTarget(gyro, angle, speed);
+		Robot.subsystemDrive.setTarget(gyro, angle, moving ? speed : 0.0);
+		
+		if (!moving && Robot.subsystemDrive.isAtAngle(8.0)) {
+			timer.start();
+			moving = true;
+		}
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return timer.get() > timeout;
+		if (moving) {
+			return timer.get() > timeout;
+		}
+		
+		return false;
 	}
 
 	@Override
 	protected void end() {
-		timer.stop();
 		Robot.subsystemDrive.stop();
+		timer.stop();
 	}
 
 	@Override

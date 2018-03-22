@@ -1,5 +1,6 @@
 package org.usfirst.frc.team537.robot.subsystems;
 
+import org.usfirst.frc.team537.robot.RobotMap;
 import org.usfirst.frc.team537.robot.commands.CommandLedsDefault;
 import org.usfirst.frc.team537.robot.helpers.Colour;
 
@@ -22,9 +23,9 @@ public class SubsystemLeds extends Subsystem {
 	}
 
 	public void setColour(Colour colour) {
-		canifier.setLEDOutput(colour.getR(), LEDChannel.LEDChannelA);
-		canifier.setLEDOutput(colour.getG(), LEDChannel.LEDChannelB);
-		canifier.setLEDOutput(colour.getB(), LEDChannel.LEDChannelC);
+		canifier.setLEDOutput(RobotMap.Robot.LED_BRIGHTNESS * colour.getR(), LEDChannel.LEDChannelA);
+		canifier.setLEDOutput(RobotMap.Robot.LED_BRIGHTNESS * colour.getG(), LEDChannel.LEDChannelB);
+		canifier.setLEDOutput(RobotMap.Robot.LED_BRIGHTNESS * colour.getB(), LEDChannel.LEDChannelC);
 	}
 	
 	public void reset() {

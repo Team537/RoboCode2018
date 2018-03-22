@@ -19,9 +19,9 @@ public class CommandCollectSpeed extends Command {
 
 	@Override
 	protected void execute() {
-		if (Robot.oi.joystickSecondary.getRawButton("RampUpRight"))
+		if (speed < 0.0 && Robot.oi.joystickSecondary.getRawButton("CubeIntakeSlow"))
 		{
-			Robot.subsystemCollect.setSpeed(speed * 0.1f);
+			Robot.subsystemCollect.setSpeed(speed * 0.15f);
 			return;
 		}
 		

@@ -1,5 +1,7 @@
 package org.usfirst.frc.team537.robot;
 
+import org.usfirst.frc.team537.robot.helpers.*;
+
 public class RobotMap {
 	public static class Driver {
 		public static final int PRIMARY_PORT = 0;
@@ -7,11 +9,11 @@ public class RobotMap {
 	}
 	
 	public static class Subsystems {
-		public static final boolean CAMERA = true;
+		public static final boolean CAMERA = false;
 		public static final boolean COLLECT = true;
-		public static final boolean LEDS = true;
-		public static final boolean LIFT = false;
-		public static final boolean RAMPS = false;
+		public static final boolean LEDS = false;
+		public static final boolean LIFT = true;
+		public static final boolean RAMPS = true;
 	}
 
 	public static class Robot {
@@ -20,8 +22,20 @@ public class RobotMap {
 		public static final double RATIO = Math.sqrt((LENGTH * LENGTH) + (WIDTH * WIDTH));
 
 		public static final double DRIVE_SPEED = 1.0;
+		public static final double LED_BRIGHTNESS = 0.4;
 	}
 
+	public static class PIDs {
+		public static final PID DRIVE_ANGLE_FRONT_LEFT = new PID(5.4, 0.0, 4.3); // new PID(5.2, 0.0, 9.8)
+		public static final PID DRIVE_ANGLE_FRONT_RIGHT = new PID(5.4, 0.0, 4.3); // new PID(2.6, 0.0, 4.9)
+		public static final PID DRIVE_ANGLE_BACK_LEFT = new PID(5.4, 0.0, 4.3); // new PID(5.2, 0.0, 9.8)
+		public static final PID DRIVE_ANGLE_BACK_RIGHT = new PID(5.4, 0.0, 4.3); // new PID(5.2, 0.0, 9.8)
+		public static final PID DRIVE_ROTATE = new PID(0.01, 0.0, 0.002);
+		public static final PID DRIVE_MODE_SPEED = new PID(0.0, 0.0, 0.0);
+		public static final PID DRIVE_MODE_RATE = new PID(0.05, 0.0, 0.025, 0.3);
+		public static final PID DRIVE_MODE_DISTANCE = new PID(0.22, 0.0, 0.0);
+	}
+	
 	public static class PWM {
 	}
 

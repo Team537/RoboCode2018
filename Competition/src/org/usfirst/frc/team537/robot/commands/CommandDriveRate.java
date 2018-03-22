@@ -1,6 +1,7 @@
 package org.usfirst.frc.team537.robot.commands;
 
 import org.usfirst.frc.team537.robot.Robot;
+import org.usfirst.frc.team537.robot.RobotMap;
 import org.usfirst.frc.team537.robot.subsystems.SwerveModule;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -11,13 +12,15 @@ public class CommandDriveRate extends Command {
 	private double rate;
 	private double timeout;
 	private Timer timer;
+	private boolean moving;
 	
 	public CommandDriveRate(double angle, double rate, double timeout) {
 		requires(Robot.subsystemDrive);
 		this.angle = angle;
-		this.rate = rate;
+		this.rate = rate * RobotMap.Digital.DRIVE_M_TO_ENCODER;
 		this.timeout = timeout;
 		this.timer = new Timer();
+		this.moving = false;
 	}
 
 	@Override
@@ -25,24 +28,34 @@ public class CommandDriveRate extends Command {
 		Robot.subsystemDrive.reset();
 		Robot.subsystemDrive.setMode(SwerveModule.SwerveMode.ModeRate);
 		timer.reset();
-		timer.start();
+		moving = false;
 	}
 
 	@Override
 	protected void execute() {
 		double gyro = Robot.subsystemGyro.getAngle();
-		Robot.subsystemDrive.setTarget(gyro, angle, rate);
+		Robot.subsystemDrive.setTarget(gyro, angle, moving ? rate : 0.0);
+		
+		if (!moving && Robot.subsystemDrive.isAtAngle(8.0)) {
+			timer.start();
+			moving = true;
+		}
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return timer.get() > timeout;
+		if (moving) {
+			return timer.get() > timeout;
+		}
+		
+		return false;
 	}
 
 	@Override
 	protected void end() {
-		timer.stop();
 		Robot.subsystemDrive.stop();
+		timer.stop();
+		moving = false;
 	}
 
 	@Override

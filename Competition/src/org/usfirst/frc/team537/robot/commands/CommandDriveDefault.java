@@ -21,11 +21,11 @@ public class CommandDriveDefault extends Command {
 	protected void execute() {
 		double gyro = Math.toRadians(Robot.subsystemGyro.getAngle());
 		double rotation = Robot.oi.joystickPrimary.getRawAxis("DriveRotation");
-		rotation = 0.5 * sensitivity(Maths.deadband(0.7, rotation), 0.1);
+		rotation = 0.6 * sensitivity(Maths.deadband(0.25, rotation), 0.05);
 		double strafe = Robot.oi.joystickPrimary.getRawAxis("DriveStrafe");
-		strafe = sensitivity(Maths.deadband(0.2, strafe), 0.1);
+		strafe = sensitivity(Maths.deadband(0.1, strafe), 0.05);
 		double forward = Robot.oi.joystickPrimary.getRawAxis("DriveForward");
-		forward = sensitivity(Maths.deadband(0.2, forward), 0.1);
+		forward = sensitivity(Maths.deadband(0.1, forward), 0.05);
 		Robot.subsystemDrive.setTarget(gyro, rotation, strafe, forward);
 	}
 	

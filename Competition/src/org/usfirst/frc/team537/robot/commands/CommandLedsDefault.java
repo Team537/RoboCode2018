@@ -5,7 +5,6 @@ import org.usfirst.frc.team537.robot.helpers.Colour;
 import org.usfirst.frc.team537.robot.helpers.Maths;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CommandLedsDefault extends Command {
 	private double lastTime;

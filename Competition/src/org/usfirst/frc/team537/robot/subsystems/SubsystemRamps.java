@@ -59,10 +59,18 @@ public class SubsystemRamps extends Subsystem {
 	public void setLift(RampSide side, double speed) {
 		switch (side) {
 		case SideLeft:
-			rampLiftLeft.set(ControlMode.PercentOutput, speed);
+			if (deployLeft.get() == Value.kForward) {
+				rampLiftLeft.set(ControlMode.PercentOutput, speed);
+			} else {
+				rampLiftLeft.set(ControlMode.PercentOutput, 0.0);
+			}
 			break;
 		case SideRight:
-			rampLiftRight.set(ControlMode.PercentOutput, speed);
+			if (deployRight.get() == Value.kForward) {
+				rampLiftRight.set(ControlMode.PercentOutput, speed);
+			} else {
+				rampLiftRight.set(ControlMode.PercentOutput, 0.0);
+			}
 			break;
 		}
 	}

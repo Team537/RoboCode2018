@@ -8,10 +8,11 @@ public class JoystickBox extends IJoystick {
 		public static final int RAMP_UP_RIGHT = 4;
 		public static final int CUBE_UP = 5;
 		public static final int CUBE_DOWN = 6;
-		public static final int CUBE_IN = 7;
-		public static final int CUBE_OUT = 8;
+		public static final int CUBE_IN = 8;
+		public static final int CUBE_OUT = 7;
 		public static final int DEPLOY_LEFT_RAMP = 9;
 		public static final int DEPLOY_RIGHT_RAMP = 10;
+		public static final int CUBE_INTAKE_SLOW = 11;
 	}
 
 	public JoystickBox(int port) {
@@ -29,6 +30,7 @@ public class JoystickBox extends IJoystick {
 		
 		add("CubeIn", new ValueUsage(Keys.CUBE_IN, false));
 		add("CubeOut", new ValueUsage(Keys.CUBE_OUT, false));
+		add("CubeIntakeSlow", new ValueUsage(Keys.CUBE_INTAKE_SLOW, false));
 	}
 
 	@Override

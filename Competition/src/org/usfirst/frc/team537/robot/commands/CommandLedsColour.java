@@ -3,18 +3,25 @@ package org.usfirst.frc.team537.robot.commands;
 import org.usfirst.frc.team537.robot.Robot;
 import org.usfirst.frc.team537.robot.helpers.Colour;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class CommandLedsColour extends Command {
 	private Colour colour;
+	private double timeout;
+	private Timer timer;
 	
-	public CommandLedsColour(Colour colour) {
+	public CommandLedsColour(Colour colour, double timeout) {
 		requires(Robot.subsystemLeds);
 		this.colour = colour;
+		this.timeout = timeout;
+		this.timer = new Timer();
 	}
 
 	@Override
 	protected void initialize() {
+		timer.reset();
+		timer.start();
 	}
 
 	@Override
@@ -24,12 +31,13 @@ public class CommandLedsColour extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return timer.get() > timeout;
 	}
 
 	@Override
 	protected void end() {
 		Robot.subsystemLeds.reset();
+		timer.stop();
 	}
 
 	@Override
