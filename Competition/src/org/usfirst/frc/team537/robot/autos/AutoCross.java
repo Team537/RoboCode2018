@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoCross extends CommandGroup {
 	public AutoCross(int location, boolean isSwitchLeft, double delay) {
 		addSequential(new CommandNothing(delay));
+		addParallel(new CommandLiftDeploy());
 		
 		switch(location) {
 			case 1: // Left.
@@ -18,8 +19,8 @@ public class AutoCross extends CommandGroup {
 				break;
 			case 2: // Centre.
 				DriverStation.reportWarning("AutoCross centre!", false);
-				addSequential(new CommandDriveRate(0.0, 0.8, 1.6)); // Forward 1m.
-				addSequential(new CommandDriveRate(isSwitchLeft ? 90.0 : 270.0, 0.8, 3.4)); // Right 3m.
+				addSequential(new CommandDriveRate(0.0, 0.8, 1.5)); // Forward 1m.
+				addSequential(new CommandDriveRate(isSwitchLeft ? 90.0 : 270.0, 0.7, 3.0)); // Right 3m.
 				addSequential(new CommandDriveRate(0.0, 0.65, 3.0)); // Forward 3m.
 				addSequential(new CommandDriveRotate(0.0));
 				break;

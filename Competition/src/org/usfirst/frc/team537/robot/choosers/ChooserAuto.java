@@ -28,6 +28,7 @@ public class ChooserAuto {
 		modeChooser = new SendableChooser<>();
 		modeChooser.addObject("Cross", "C");
 		modeChooser.addObject("Switch", "T");
+		modeChooser.addObject("None", "N");
 		modeChooser.addDefault("Testing", "Z");
 		SmartDashboard.putData("Auto Mode", modeChooser);
 		
@@ -52,6 +53,7 @@ public class ChooserAuto {
 	
 	private String fixNull(String string, String normal) {
 		if (string == null || string.isEmpty()) {
+			DriverStation.reportError("Invalid Chooser string: " + string, false);
 			return normal;
 		}
 		

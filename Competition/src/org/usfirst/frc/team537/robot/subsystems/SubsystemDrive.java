@@ -63,7 +63,7 @@ public class SubsystemDrive extends Subsystem implements PIDOutput {
 	protected void initDefaultCommand() {
 		SmartDashboard.putData("Drive Reset", new CommandDriveReset());
 	//	SmartDashboard.putData("Test Speed", new CommandDriveSpeed(0.0, 0.3, 2.3));
-		SmartDashboard.putData("Test Rate", new CommandDriveRate(0.0, 800.0, 3.5));
+	//	SmartDashboard.putData("Test Rate", new CommandDriveRate(0.0, 800.0, 3.5));
 	//	SmartDashboard.putData("Test Dist", new CommandDriveDistance(0.0, 3.1415));
 		
 		setDefaultCommand(new CommandDriveDefault());
