@@ -17,8 +17,8 @@ public class SwerveModule {
 		ModeRate(ControlMode.Velocity, RobotMap.PIDs.DRIVE_MODE_RATE), 
 		ModeDistance(ControlMode.Position, RobotMap.PIDs.DRIVE_MODE_DISTANCE);
 		
-		private ControlMode controlMode;
-		private PID pidDrive;
+		private final ControlMode controlMode;
+		private final PID pidDrive;
 		
 		private SwerveMode(ControlMode controlMode, PID pidDrive) {
 			this.controlMode = controlMode;
@@ -168,7 +168,7 @@ public class SwerveModule {
 	//	talonAngle.getSensorCollection().setQuadraturePosition(absolutePosition, RobotMap.kTimeoutMs); // talonAngle.setEncPosition(absolutePosition);
 		
 		talonDrive.setSelectedSensorPosition(0, RobotMap.kPIDLoopIdx, RobotMap.kTimeoutMs);
-		swerveMode = SwerveMode.ModeSpeed;
+		stop();
 	}
 
 	public void stop() {

@@ -2,6 +2,7 @@ package org.usfirst.frc.team537.robot;
 
 import org.usfirst.frc.team537.robot.commands.*;
 import org.usfirst.frc.team537.robot.joysticks.*;
+import org.usfirst.frc.team537.robot.subsystems.SubsystemRamp.RampSide;
 
 public class OI {
 	public IJoystick joystickPrimary;
@@ -20,15 +21,17 @@ public class OI {
 		this.joystickSecondary = new JoystickBox(RobotMap.Driver.SECONDARY_PORT);
 		
 		if (RobotMap.Subsystems.RAMPS_LEFT) {
-		//	this.joystickSecondary.getJoystickButton("RampDeployLeft").whileHeld(new CommandRampLeftRelease());
-		//	this.joystickSecondary.getJoystickButton("RampDownLeft").whileHeld(new CommandRampLeftSpeed(-0.7));
-		//	this.joystickSecondary.getJoystickButton("RampUpLeft").whileHeld(new CommandRampLeftSpeed(1.0));
+			this.joystickSecondary.getJoystickButton("RampDeployLeft").whenPressed(new CommandRampDeploy(RampSide.SideLeft, true));
+			this.joystickSecondary.getJoystickButton("RampDeployLeft").whenReleased(new CommandRampDeploy(RampSide.SideLeft, false));
+			this.joystickSecondary.getJoystickButton("RampDownLeft").whileHeld(new CommandRampSpeed(RampSide.SideLeft, -0.7));
+			this.joystickSecondary.getJoystickButton("RampUpLeft").whileHeld(new CommandRampSpeed(RampSide.SideLeft, 1.0));
 		}
 
 		if (RobotMap.Subsystems.RAMPS_RIGHT) {
-		//	this.joystickSecondary.getJoystickButton("RampDeployRight").whileHeld(new CommandRampRightRelease());
-		//	this.joystickSecondary.getJoystickButton("RampDownRight").whileHeld(new CommandRampRightSpeed(-0.7));
-		//	this.joystickSecondary.getJoystickButton("RampUpRight").whileHeld(new CommandRampRightSpeed(1.0));
+			this.joystickSecondary.getJoystickButton("RampDeployRight").whenPressed(new CommandRampDeploy(RampSide.SideRight, true));
+			this.joystickSecondary.getJoystickButton("RampDeployRight").whenReleased(new CommandRampDeploy(RampSide.SideRight, false));
+			this.joystickSecondary.getJoystickButton("RampDownRight").whileHeld(new CommandRampSpeed(RampSide.SideRight, -0.7));
+			this.joystickSecondary.getJoystickButton("RampUpRight").whileHeld(new CommandRampSpeed(RampSide.SideRight, 1.0));
 		}
 
 		if (RobotMap.Subsystems.LIFT) {

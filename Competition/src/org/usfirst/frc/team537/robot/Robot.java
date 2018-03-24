@@ -2,6 +2,7 @@ package org.usfirst.frc.team537.robot;
 
 import org.usfirst.frc.team537.robot.choosers.*;
 import org.usfirst.frc.team537.robot.subsystems.*;
+import org.usfirst.frc.team537.robot.subsystems.SubsystemRamp.RampSide;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -36,10 +37,10 @@ public class Robot extends IterativeRobot {
 			subsystemCollect = new SubsystemCollect();
 		}
 		if (RobotMap.Subsystems.RAMPS_LEFT) {
-			subsystemRampLeft = new SubsystemRamp(true);
+			subsystemRampLeft = new SubsystemRamp(RampSide.SideLeft);
 		}
 		if (RobotMap.Subsystems.RAMPS_RIGHT) {
-			subsystemRampRight = new SubsystemRamp(false);
+			subsystemRampRight = new SubsystemRamp(RampSide.SideRight);
 		}
 		if (RobotMap.Subsystems.LIFT) {
 			subsystemLift = new SubsystemLift();

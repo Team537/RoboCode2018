@@ -10,56 +10,38 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ChooserAuto {
-	private SendableChooser<String> stationChooser;
 	private SendableChooser<String> modeChooser;
+	private SendableChooser<Integer> locationChooser;
 	private SendableChooser<Double> delayChooser;
-	private SendableChooser<Boolean> reversedChooser;
 	
 	public ChooserAuto() {
-		stationChooser = new SendableChooser<>();
-		stationChooser.addObject("None", "N0");
-		CreateStationChoice("Red", 1);
-		CreateStationChoice("Red", 2);
-		CreateStationChoice("Red", 3);
-		CreateStationChoice("Blue", 1);
-		CreateStationChoice("Blue", 2);
-		CreateStationChoice("Blue", 3);
-		SmartDashboard.putData("Auto-Station", stationChooser);
-
 		modeChooser = new SendableChooser<>();
-		modeChooser.addObject("Cross", "C");
-		modeChooser.addObject("Switch", "T");
-		modeChooser.addObject("None", "N");
-		modeChooser.addDefault("Testing", "Z");
+		modeChooser.addObject("Cross Forward", "CF");
+		modeChooser.addObject("Cross Reversed", "CR");
+		modeChooser.addObject("Switch Forward", "SF");
+		modeChooser.addDefault("Switch Reversed", "SR");
+		modeChooser.addObject("Testing", "ZF");
+		modeChooser.addObject("None", "NF");
 		SmartDashboard.putData("Auto-Mode", modeChooser);
 		
+		locationChooser = new SendableChooser<>();
+		locationChooser.addObject("Left", 1);
+		locationChooser.addDefault("Center", 2);
+		locationChooser.addObject("Right", 3);
+		SmartDashboard.putData("Auto-Location", locationChooser);
+
 		delayChooser = new SendableChooser<>();
 		delayChooser.addDefault("0.0s", 0.0);
-		for (double i = 1.0; i <= 7.0; i += 1.0) {
-			delayChooser.addObject(i + "s", i);
-		}
+		delayChooser.addObject("1.0s", 1.0);
+		delayChooser.addObject("2.0s", 2.0);
+		delayChooser.addObject("3.0s", 3.0);
+		delayChooser.addObject("4.0s", 4.0);
 		SmartDashboard.putData("Auto-Delay", delayChooser);
-		
-		reversedChooser = new SendableChooser<>();
-		reversedChooser.addDefault("True", true);
-		reversedChooser.addObject("False", true);
-		SmartDashboard.putData("Auto-Reversed", reversedChooser);
 	}
 
-	private void CreateStationChoice(String alliance, int location) {
-		String fullName = alliance + " " + location;
-		String cName = "" + alliance.charAt(0) + location;
-
-		if (DriverStation.getInstance().getAlliance().name() == alliance && DriverStation.getInstance().getLocation() == location) {
-			stationChooser.addDefault(fullName, cName);
-		} else {
-			stationChooser.addObject(fullName, cName);
-		}
-	}
-	
-	private String fixNull(String string, String normal) {
+	private String fixSelected(String string, String normal) {
 		if (string == null || string.isEmpty()) {
-			DriverStation.reportError("Invalid Chooser string: " + string, false);
+			DriverStation.reportError("Invalid chooser string: " + string, false);
 			return normal;
 		}
 		
@@ -67,21 +49,21 @@ public class ChooserAuto {
 	}
 
 	public Command getSelected() {
-		String stationLocation = fixNull(stationChooser.getSelected(), "R1").toUpperCase();
-		char mode = fixNull(modeChooser.getSelected(), "C").toUpperCase().charAt(0);
+		int location = locationChooser.getSelected();
+		String mode = fixSelected(modeChooser.getSelected(), "CR").toUpperCase();
 		double delay = delayChooser.getSelected();
-		boolean reversed = reversedChooser.getSelected();
-		String gameData = fixNull(DriverStation.getInstance().getGameSpecificMessage(), "RRR").toUpperCase();
 		
-	//	char alliance = allianceLocation.charAt(0);
-		int location = Character.getNumericValue(stationLocation.charAt(1));
+	//	Alliance alliance = DriverStation.getInstance().getAlliance();
+		String gameData = fixSelected(DriverStation.getInstance().getGameSpecificMessage(), "RRR").toUpperCase();
 		boolean isSwitchLeft = gameData.charAt(0) == 'L';
+		
+		boolean reversed = mode.charAt(1) == 'R';
 
-		if (mode == 'C') {
+		if (mode.charAt(0) == 'C') {
 			return new AutoCross(location, isSwitchLeft, delay, reversed);
-		} else if (mode == 'T') {
+		} else if (mode.charAt(0) == 'T') {
 			return new AutoSwitch(location, isSwitchLeft, delay, reversed);
-		} else if (mode == 'Z') {
+		} else if (mode.charAt(0) == 'Z') {
 			return new AutoTesting();
 		}
 		

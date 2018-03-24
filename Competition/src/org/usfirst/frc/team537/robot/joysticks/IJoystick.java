@@ -4,17 +4,32 @@ import java.util.HashMap;
 import java.util.Map;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.command.Command;
 
 public abstract class IJoystick extends Joystick {
+	public static class IJoystickButton extends JoystickButton {
+		public IJoystickButton(GenericHID joystick, int buttonNumber) {
+			super(joystick, buttonNumber);
+		}
+		
+		public void whenChanged(final Command command) {
+		    super.whenPressed(command);
+		    super.whenReleased(command);
+		}
+	}
+	
 	public static class ValueUsage {
-		private int value;
-		private boolean inversed;
+		private final int value;
+		private final boolean inversed;
+		public IJoystickButton joystickButton;
 		
 		public ValueUsage(int value, boolean inversed) {
 			this.value = value;
 			this.inversed = inversed;
+			this.joystickButton = null;
 		}	
 	}
 	
@@ -52,8 +67,13 @@ public abstract class IJoystick extends Joystick {
 		return valueUsage.inversed ? !getRawButton(valueUsage.value) : getRawButton(valueUsage.value);
 	}
 	
-	public JoystickButton getJoystickButton(String shortName) {
+	public IJoystickButton getJoystickButton(String shortName) {
 		ValueUsage valueUsage = get(shortName);
-		return new JoystickButton(this, valueUsage.value);
+		
+		if (valueUsage.joystickButton == null) {
+			valueUsage.joystickButton = new IJoystickButton(this, valueUsage.value);
+		}
+		
+		return valueUsage.joystickButton;
 	}
 }

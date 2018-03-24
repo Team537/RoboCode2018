@@ -4,8 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.usfirst.frc.team537.robot.RobotMap;
-import org.usfirst.frc.team537.robot.commands.CommandRampLeftDefault;
-import org.usfirst.frc.team537.robot.commands.CommandRampRightDefault;
+import org.usfirst.frc.team537.robot.commands.CommandRampDefault;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -15,26 +14,33 @@ import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class SubsystemRamp extends Subsystem {
-	private boolean isLeft;
-	private Relay deploy;
-	private TalonSRX rampLift;
+	public static enum RampSide {
+		SideLeft("Left", RobotMap.Solenoid.RAMP_DEPLOY_LEFT, RobotMap.CAN.RAMP_LIFT_LEFT), 
+		SideRight("Right", RobotMap.Solenoid.RAMP_DEPLOY_RIGHT, RobotMap.CAN.RAMP_LIFT_RIGHT);
+
+		public final String name;
+		public final Relay deploy;
+		public final TalonSRX rampLift;
+		public SubsystemRamp subsystem;
+		
+		RampSide(String name, int relay, int talon) {
+			this.name = name;
+			this.deploy = new Relay(relay);
+			this.rampLift = new TalonSRX(talon);
+			this.subsystem = null;
+		}
+	}
+	
+	private final RampSide side;
 	private boolean deployed;
 	
-	public SubsystemRamp(boolean isLeft) {
-		setName("Ramp" + (isLeft ? "Left" : "Right"));
-		
-		this.isLeft = isLeft;
+	public SubsystemRamp(RampSide side) {
+		setName("Ramp" + side.name);
+		side.subsystem = this;
+		this.side = side;
 		this.deployed = false;
 		
-		if (isLeft) {
-			deploy = new Relay(RobotMap.Solenoid.RAMP_DEPLOY_LEFT);
-			rampLift = new TalonSRX(RobotMap.CAN.RAMP_LIFT_LEFT);
-		} else {
-			deploy = new Relay(RobotMap.Solenoid.RAMP_DEPLOY_RIGHT);
-			rampLift = new TalonSRX(RobotMap.CAN.RAMP_LIFT_RIGHT);
-		}
-		
-		deploy.set(Value.kOff);
+		this.side.deploy.set(Value.kOff);
 
 		Timer timerDashboard = new Timer();
 		timerDashboard.schedule(new TimerTask() {
@@ -47,35 +53,40 @@ public class SubsystemRamp extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		if (isLeft) {
-			setDefaultCommand(new CommandRampLeftDefault());
-		} else {
-			setDefaultCommand(new CommandRampRightDefault());
-		}
+		setDefaultCommand(new CommandRampDefault(side));
 	}
 
 	public void dashboard() {
 	}
 	
-	public void setToggled(boolean toggled) {
-	//	deployed = !deployed;
-		deploy.set(toggled ? Value.kForward : Value.kOff);
+	public boolean isDeployed() {
+		return deployed;
+	}
+	
+	public void setDeployed(boolean toggle) {
+		deployed = toggle;
+		side.deploy.set(deployed ? Value.kForward : Value.kOff);
+	}
+	
+	public void toggleDeployed() {
+		setDeployed(!isDeployed());
 	}
 
-	public void setLift(double speed) {
-		if (deploy.get() == Value.kForward) {
-			rampLift.set(ControlMode.PercentOutput, speed);
-		} else {
-			rampLift.set(ControlMode.PercentOutput, 0.0);
+	public void setSpeed(double speed) {
+		if (side.deploy.get() != Value.kForward) {
+			side.rampLift.set(ControlMode.PercentOutput, 0.0);
+			return;
 		}
+		
+		side.rampLift.set(ControlMode.PercentOutput, speed);
 	}
 
 	public void reset() {
+		side.deploy.set(Value.kOff);
 		stop();
 	}
 	
 	public void stop() {
-		rampLift.set(ControlMode.PercentOutput, 0.0);
-		deploy.set(Value.kOff);
+		side.rampLift.set(ControlMode.PercentOutput, 0.0);
 	}
 }
