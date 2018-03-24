@@ -16,19 +16,23 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SubsystemDrive extends Subsystem implements PIDOutput {
 	private SwerveModule frontLeft = new SwerveModule(
-		"Front Left", RobotMap.CAN.DRIVE_FRONT_LEFT_ANGLE, RobotMap.CAN.DRIVE_FRONT_LEFT_DRIVE,
+		"Front Left", RobotMap.Robot.DRIVE_ENABLED_FRONT_LEFT, 
+		RobotMap.CAN.DRIVE_FRONT_LEFT_ANGLE, RobotMap.CAN.DRIVE_FRONT_LEFT_DRIVE,
 		RobotMap.PIDs.DRIVE_ANGLE_FRONT_LEFT
 	);
 	private SwerveModule frontRight = new SwerveModule(
-		"Front Right", RobotMap.CAN.DRIVE_FRONT_RIGHT_ANGLE, RobotMap.CAN.DRIVE_FRONT_RIGHT_DRIVE,
+		"Front Right", RobotMap.Robot.DRIVE_ENABLED_FRONT_RIGHT, 
+		RobotMap.CAN.DRIVE_FRONT_RIGHT_ANGLE, RobotMap.CAN.DRIVE_FRONT_RIGHT_DRIVE,
 		RobotMap.PIDs.DRIVE_ANGLE_FRONT_RIGHT
 	);
 	private SwerveModule backLeft = new SwerveModule(
-		"Back Left", RobotMap.CAN.DRIVE_BACK_LEFT_ANGLE, RobotMap.CAN.DRIVE_BACK_LEFT_DRIVE,
+		"Back Left", RobotMap.Robot.DRIVE_ENABLED_BACK_LEFT, 
+		RobotMap.CAN.DRIVE_BACK_LEFT_ANGLE, RobotMap.CAN.DRIVE_BACK_LEFT_DRIVE,
 		RobotMap.PIDs.DRIVE_ANGLE_BACK_LEFT
 	);
 	private SwerveModule backRight = new SwerveModule(
-		"Back Right", RobotMap.CAN.DRIVE_BACK_RIGHT_ANGLE, RobotMap.CAN.DRIVE_BACK_RIGHT_DRIVE,
+		"Back Right", RobotMap.Robot.DRIVE_ENABLED_BACK_RIGHT, 
+		RobotMap.CAN.DRIVE_BACK_RIGHT_ANGLE, RobotMap.CAN.DRIVE_BACK_RIGHT_DRIVE,
 		RobotMap.PIDs.DRIVE_ANGLE_BACK_RIGHT
 	);
 	private PIDController controllerRotate;
@@ -56,7 +60,9 @@ public class SubsystemDrive extends Subsystem implements PIDOutput {
 			}
 		}, 0, 100);
 
-		recalibrate();
+		if (!RobotMap.Robot.TESTING_MODE) {
+			recalibrate();
+		}
 	}
 
 	@Override

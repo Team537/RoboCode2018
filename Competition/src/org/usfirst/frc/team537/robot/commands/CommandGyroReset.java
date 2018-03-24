@@ -5,8 +5,11 @@ import org.usfirst.frc.team537.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class CommandGyroReset extends Command {
-	public CommandGyroReset() {
+	private double angle;
+	
+	public CommandGyroReset(double angle) {
 		requires(Robot.subsystemGyro);
+		this.angle = angle;
 	}
 
 	@Override
@@ -16,6 +19,7 @@ public class CommandGyroReset extends Command {
 	@Override
 	protected void execute() {
 		Robot.subsystemGyro.reset();
+		Robot.subsystemGyro.setAngle(angle);
 	}
 
 	@Override

@@ -6,16 +6,16 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class SubsystemCamera extends Subsystem {
 	private UsbCamera usbCamera;
-	
+//	private MjpegServer mjpegServer;
 	
 	public SubsystemCamera() {
 		setName("Camera");
-		usbCamera = CameraServer.getInstance().startAutomaticCapture(0);
+		usbCamera = CameraServer.getInstance().startAutomaticCapture("cam0", 0);
+	//	usbCamera.setResolution(320, 240);
+	//	usbCamera.setFPS(30);
 
-		// mjpegServer = new MjpegServer("server_cam0", 1181);
-		// mjpegServer.setSource(usbCamera);
-		usbCamera.setResolution(320, 240);		// 320,240 
-		usbCamera.setFPS(30);
+	///	mjpegServer = new MjpegServer("server_cam0", 1181);
+	//	mjpegServer.setSource(usbCamera);
 	}
 
 	@Override

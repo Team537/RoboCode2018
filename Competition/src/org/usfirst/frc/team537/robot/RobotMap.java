@@ -9,11 +9,12 @@ public class RobotMap {
 	}
 	
 	public static class Subsystems {
-		public static final boolean CAMERA = false;
+		public static final boolean CAMERA = true;
 		public static final boolean COLLECT = true;
 		public static final boolean LEDS = false;
 		public static final boolean LIFT = true;
-		public static final boolean RAMPS = true;
+		public static final boolean RAMPS_LEFT = true;
+		public static final boolean RAMPS_RIGHT = true;
 	}
 
 	public static class Robot {
@@ -22,12 +23,19 @@ public class RobotMap {
 		public static final double RATIO = Math.sqrt((LENGTH * LENGTH) + (WIDTH * WIDTH));
 
 		public static final double DRIVE_SPEED = 1.0;
+		public static final boolean DRIVE_ENABLED_FRONT_LEFT = true;
+		public static final boolean DRIVE_ENABLED_FRONT_RIGHT = true;
+		public static final boolean DRIVE_ENABLED_BACK_LEFT = true;
+		public static final boolean DRIVE_ENABLED_BACK_RIGHT = true;
+		
 		public static final double LED_BRIGHTNESS = 0.4;
+		
+		public static final boolean TESTING_MODE = false;
 	}
 
 	public static class PIDs {
 		public static final PID DRIVE_ANGLE_FRONT_LEFT = new PID(5.4, 0.0, 4.3); // new PID(5.2, 0.0, 9.8)
-		public static final PID DRIVE_ANGLE_FRONT_RIGHT = new PID(5.4, 0.0, 4.3); // new PID(2.6, 0.0, 4.9)
+		public static final PID DRIVE_ANGLE_FRONT_RIGHT = new PID(3.8, 0.0, 4.0); // new PID(2.6, 0.0, 4.9)
 		public static final PID DRIVE_ANGLE_BACK_LEFT = new PID(5.4, 0.0, 4.3); // new PID(5.2, 0.0, 9.8)
 		public static final PID DRIVE_ANGLE_BACK_RIGHT = new PID(5.4, 0.0, 4.3); // new PID(5.2, 0.0, 9.8)
 		public static final PID DRIVE_ROTATE = new PID(0.01, 0.0, 0.002);
@@ -44,17 +52,17 @@ public class RobotMap {
 	public static final int kTimeoutMs = 10;
 	
 	public static class CAN {
-		public static final int DRIVE_BACK_RIGHT_DRIVE = 8;
-		public static final int DRIVE_BACK_RIGHT_ANGLE = 7;
+		public static final int DRIVE_FRONT_LEFT_DRIVE = 4;
+		public static final int DRIVE_FRONT_LEFT_ANGLE = 3;
 
 		public static final int DRIVE_FRONT_RIGHT_DRIVE = 1;
 		public static final int DRIVE_FRONT_RIGHT_ANGLE = 2;
 
-		public static final int DRIVE_FRONT_LEFT_DRIVE = 4;
-		public static final int DRIVE_FRONT_LEFT_ANGLE = 3;
-		
 		public static final int DRIVE_BACK_LEFT_DRIVE = 5;
 		public static final int DRIVE_BACK_LEFT_ANGLE = 6;
+
+		public static final int DRIVE_BACK_RIGHT_DRIVE = 8;
+		public static final int DRIVE_BACK_RIGHT_ANGLE = 7;
 
 		public static final int LIFT = 13;
 

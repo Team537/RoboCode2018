@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SwerveModule {
@@ -35,6 +36,7 @@ public class SwerveModule {
 	}
 	
 	private String moduleName;
+	private boolean enabled;
 	private TalonSRX talonAngle;
 	private TalonSRX talonDrive;
 	private double currentAngle;
@@ -44,16 +46,21 @@ public class SwerveModule {
 	private double setpointDrive;
 	private SwerveMode swerveMode;
 
-	public SwerveModule(String name, int portAngle, int portDrive, PID pidAngle) {
-		moduleName = name;
-		talonAngle = new TalonSRX(portAngle);
-		talonDrive = new TalonSRX(portDrive);
-		currentAngle = 0.0;
-		currentPosition = 0.0;
-		currentVelocity = 0.0;
-		setpointAngle = 0.0;
-		setpointDrive = 0.0;
-		swerveMode = SwerveMode.ModeSpeed;
+	public SwerveModule(String name, boolean enabled, int portAngle, int portDrive, PID pidAngle) {
+		this.moduleName = name;
+		this.enabled = enabled;
+		this.talonAngle = new TalonSRX(portAngle);
+		this.talonDrive = new TalonSRX(portDrive);
+		this.currentAngle = 0.0;
+		this.currentPosition = 0.0;
+		this.currentVelocity = 0.0;
+		this.setpointAngle = 0.0;
+		this.setpointDrive = 0.0;
+		this.swerveMode = SwerveMode.ModeSpeed;
+		
+		if (!enabled) {
+			DriverStation.reportError("Module is set to be disabled: " + name, false);
+		}
 		
 		talonAngle.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, RobotMap.kPIDLoopIdx, RobotMap.kTimeoutMs);
         talonAngle.config_kP(RobotMap.kPIDLoopIdx, pidAngle.getP(), RobotMap.kTimeoutMs);
@@ -79,10 +86,14 @@ public class SwerveModule {
 	//	SmartDashboard.putNumber(moduleName + " Drive", currentDrive);
 	//	SmartDashboard.putNumber(moduleName + " Drive Setpoint", setpointDrive);
 	//	SmartDashboard.putNumber(moduleName + " Drive (m)", currentPosition / RobotMap.Digital.DRIVE_M_TO_ENCODER);
-		SmartDashboard.putNumber(moduleName + " Rate (m/s)", currentVelocity / RobotMap.Digital.DRIVE_M_TO_ENCODER);
+	//	SmartDashboard.putNumber(moduleName + " Rate (m/s)", currentVelocity / RobotMap.Digital.DRIVE_M_TO_ENCODER);
 	}
 
 	public void setTarget(double angle, double drive, boolean driverControl) {
+		if (!enabled) {
+			return;
+		}
+		
 		currentAngle = talonAngle.getSelectedSensorPosition(RobotMap.kPIDLoopIdx);
 		currentPosition = talonDrive.getSelectedSensorPosition(RobotMap.kPIDLoopIdx);
 		currentVelocity = talonDrive.getSelectedSensorVelocity(RobotMap.kPIDLoopIdx);
@@ -128,6 +139,10 @@ public class SwerveModule {
 	}
 	
 	public boolean isAtTarget() {
+		if (!enabled) {
+			return true;
+		}
+		
 		switch (swerveMode) {
 			case ModeSpeed:
 				return true;
@@ -141,6 +156,10 @@ public class SwerveModule {
 	}
 	
 	public boolean isAtAngle(double error) {
+		if (!enabled) {
+			return true;
+		}
+		
 		return Maths.nearTarget((double) talonAngle.getSelectedSensorPosition(RobotMap.kPIDLoopIdx), setpointAngle, 4096.0 * (error / 360.0));
 	}
 

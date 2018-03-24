@@ -40,11 +40,15 @@ public class SubsystemGyro extends Subsystem implements PIDSource {
 
 	@Override
 	protected void initDefaultCommand() {
-		SmartDashboard.putData("Gyro Reset", new CommandGyroReset());
+		SmartDashboard.putData("Gyro Reset", new CommandGyroReset(0.0));
 	}
 
 	public double getAngle() {
 		return Maths.normalizeAngle(ahrs.getAngle());
+	}
+	
+	public void setAngle(double angle) {
+		ahrs.setAngleAdjustment(angle);
 	}
 
 	@Override

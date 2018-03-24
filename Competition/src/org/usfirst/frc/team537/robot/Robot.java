@@ -14,7 +14,8 @@ public class Robot extends IterativeRobot {
 	public static SubsystemLeds subsystemLeds;
 	public static SubsystemCollect subsystemCollect;
 	public static SubsystemDrive subsystemDrive;
-	public static SubsystemRamps subsystemRamps;
+	public static SubsystemRamp subsystemRampLeft;
+	public static SubsystemRamp subsystemRampRight;
 	public static SubsystemLift subsystemLift;
 
 	public static OI oi;
@@ -34,8 +35,11 @@ public class Robot extends IterativeRobot {
 		if (RobotMap.Subsystems.COLLECT) {
 			subsystemCollect = new SubsystemCollect();
 		}
-		if (RobotMap.Subsystems.RAMPS) {
-			subsystemRamps = new SubsystemRamps();
+		if (RobotMap.Subsystems.RAMPS_LEFT) {
+			subsystemRampLeft = new SubsystemRamp(true);
+		}
+		if (RobotMap.Subsystems.RAMPS_RIGHT) {
+			subsystemRampRight = new SubsystemRamp(false);
 		}
 		if (RobotMap.Subsystems.LIFT) {
 			subsystemLift = new SubsystemLift();
