@@ -9,7 +9,7 @@ public class SubsystemCamera extends Subsystem {
 	
 	public SubsystemCamera() {
 		setName("Camera");
-		usbCamera = CameraServer.getInstance().startAutomaticCapture("cam0", 0);
+		usbCamera = CameraServer.getInstance().startAutomaticCapture(0);
 	//	usbCamera.setResolution(320, 240);
 	//	usbCamera.setFPS(30);
 	}

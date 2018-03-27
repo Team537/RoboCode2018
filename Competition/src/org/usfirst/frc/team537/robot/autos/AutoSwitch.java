@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoSwitch extends CommandGroup {
 	public AutoSwitch(int location, boolean isSwitchLeft, double delay, boolean reversed) {
 		addSequential(new CommandGyroReset(reversed ? 180.0 : 0.0));
-		addParallel(new CommandLiftDeploy());
 		addSequential(new CommandNothing(delay));
 		
 		switch(location) {
@@ -32,6 +31,7 @@ public class AutoSwitch extends CommandGroup {
 				break;
 		}
 
+		addParallel(new CommandLiftDeploy());
 	//	addSequential(new CommandDriveRate(0.0, 0.8, 0.5)); // Forward 10cm.
 	//	addParallel(new CommandCollectSpeed(-0.7), 1.8);
 		

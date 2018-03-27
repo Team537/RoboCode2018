@@ -59,9 +59,14 @@ public class ChooserAuto {
 		
 		boolean reversed = mode.charAt(1) == 'R';
 
+		DriverStation.reportWarning("Chooser location: " + location, false);
+		DriverStation.reportWarning("Chooser switch left: " + isSwitchLeft, false);
+		DriverStation.reportWarning("Chooser mode-reversed: " + reversed, false);
+		DriverStation.reportWarning("Chooser mode: " + mode.charAt(0), false);
+
 		if (mode.charAt(0) == 'C') {
 			return new AutoCross(location, isSwitchLeft, delay, reversed);
-		} else if (mode.charAt(0) == 'T') {
+		} else if (mode.charAt(0) == 'S') {
 			return new AutoSwitch(location, isSwitchLeft, delay, reversed);
 		} else if (mode.charAt(0) == 'Z') {
 			return new AutoTesting();
