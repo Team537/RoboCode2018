@@ -21,18 +21,30 @@ public class CommandDriveDefault extends Command {
 	protected void execute() {
 		double gyro = Math.toRadians(Robot.subsystemGyro.getAngle());
 		double rotation = Robot.oi.joystickPrimary.getRawAxis("DriveRotation");
-		rotation = 0.7 * sensitivity(Maths.deadband(0.25, rotation), 0.1);
+		rotation = sensitivity(deadband(0.2, rotation), 0.2);
 		double strafe = Robot.oi.joystickPrimary.getRawAxis("DriveStrafe");
-		strafe = sensitivity(Maths.deadband(0.1, strafe), 0.1);
+		strafe = sensitivity(deadband(0.1, strafe), 0.1);
 		double forward = Robot.oi.joystickPrimary.getRawAxis("DriveForward");
-		forward = sensitivity(Maths.deadband(0.1, forward), 0.1);
+		forward = sensitivity(deadband(0.1, forward), 0.1);
 		Robot.subsystemDrive.setTarget(gyro, rotation, strafe, forward);
 	}
 	
-	private double sensitivity(double value, double factor) {
+	private static double sensitivity(double value, double factor) {
 		return ((1.0 - factor) * value) + (factor * Math.pow(value, 3.0));
 	}
 
+	public static double deadband(double min, double value) {
+		double result = Maths.deadband(min, value);
+		
+		if (result < 0.0) {
+			result += min;
+		} else if (result > 0.0) {
+			result -= min;
+		}
+		
+		return Maths.clamp(result, -1.0, 1.0);
+	}
+	
 	@Override
 	protected boolean isFinished() {
 		return false;

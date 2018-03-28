@@ -6,6 +6,7 @@ import org.usfirst.frc.team537.robot.helpers.PID;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -66,6 +67,7 @@ public class SwerveModule {
         talonAngle.config_kP(RobotMap.kPIDLoopIdx, pidAngle.getP(), RobotMap.kTimeoutMs);
         talonAngle.config_kI(RobotMap.kPIDLoopIdx, pidAngle.getI(), RobotMap.kTimeoutMs); 
         talonAngle.config_kD(RobotMap.kPIDLoopIdx, pidAngle.getD(), RobotMap.kTimeoutMs);
+        talonAngle.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 10, RobotMap.kTimeoutMs);
         talonAngle.enableCurrentLimit(false);
         talonAngle.configPeakCurrentDuration(0, RobotMap.kTimeoutMs); // 10
         talonAngle.configPeakCurrentLimit(0, RobotMap.kTimeoutMs); // 30
@@ -80,10 +82,9 @@ public class SwerveModule {
 	}
 
 	public void dashboard() {
-	//	SmartDashboard.putNumber(moduleName + " Angle", currentAngle);
 	//	SmartDashboard.putNumber(moduleName + " Angle Setpoint", setpointAngle);
+	//	SmartDashboard.putNumber(moduleName + " Angle (deg)", currentAngle);
 
-	//	SmartDashboard.putNumber(moduleName + " Drive", currentDrive);
 	//	SmartDashboard.putNumber(moduleName + " Drive Setpoint", setpointDrive);
 	//	SmartDashboard.putNumber(moduleName + " Drive (m)", currentPosition / RobotMap.Digital.DRIVE_M_TO_ENCODER);
 	//	SmartDashboard.putNumber(moduleName + " Rate (m/s)", currentVelocity / RobotMap.Digital.DRIVE_M_TO_ENCODER);
@@ -98,22 +99,22 @@ public class SwerveModule {
 		currentPosition = talonDrive.getSelectedSensorPosition(RobotMap.kPIDLoopIdx);
 		currentVelocity = talonDrive.getSelectedSensorVelocity(RobotMap.kPIDLoopIdx);
 
-		angle *= -1.0;
+		setpointAngle = -angle;
+		setpointDrive = drive;
 		
-		if (driverControl && angle >= 180.0) {
-			angle -= 180.0;
-			drive *= -1.0;
+		setpointAngle = 4096.0 * (setpointAngle / 360.0);
+		double angleError = currentAngle - setpointAngle;
+		
+		if (angleError < -2048.0) {
+			setpointAngle -= 4096.0;
+		} else if (angleError > 2048.0) {
+			setpointAngle += 4096.0;
 		}
-
-		angle = Maths.normalizeAngle(angle);
 		
 		if (!driverControl || angle != 0.0) {
-			angle = 4096.0 * (angle / 360.0) + 1;
-			setpointAngle = angle;
-			talonAngle.set(ControlMode.Position,  setpointAngle);
+			talonAngle.set(ControlMode.Position, setpointAngle);
 		}
 		
-		setpointDrive = drive;
 		talonDrive.set(swerveMode.getControlMode(), setpointDrive);
 	}
 	
@@ -147,9 +148,9 @@ public class SwerveModule {
 			case ModeSpeed:
 				return true;
 			case ModeRate:
-				return Maths.nearTarget((double) talonDrive.getSelectedSensorVelocity(RobotMap.kPIDLoopIdx), setpointDrive, 0.9); // TODO
+				return Maths.nearTarget((double) talonDrive.getSelectedSensorVelocity(RobotMap.kPIDLoopIdx), setpointDrive, 0.06 * RobotMap.Digital.DRIVE_M_TO_ENCODER);
 			case ModeDistance:
-				return Maths.nearTarget((double) talonDrive.getSelectedSensorPosition(RobotMap.kPIDLoopIdx), setpointDrive, 0.07 * RobotMap.Digital.DRIVE_M_TO_ENCODER);
+				return Maths.nearTarget((double) talonDrive.getSelectedSensorPosition(RobotMap.kPIDLoopIdx), setpointDrive, 0.08 * RobotMap.Digital.DRIVE_M_TO_ENCODER);
 			default:
 				return true;
 		}

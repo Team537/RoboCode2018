@@ -10,15 +10,15 @@ public class RobotMap {
 	
 	public static class Subsystems {
 		public static final boolean CAMERA = true;
-		public static final boolean COLLECT = true;
-		public static final boolean LEDS = false;
-		public static final boolean LIFT = true;
-		public static final boolean RAMPS_LEFT = true;
-		public static final boolean RAMPS_RIGHT = true;
+		public static final boolean COLLECT = false; // true
+		public static final boolean LEDS = false; // true
+		public static final boolean LIFT = false; // true
+		public static final boolean RAMPS_LEFT = false; // true
+		public static final boolean RAMPS_RIGHT = false; // true
 	}
 
 	public static class Robot {
-		public static final double WIDTH = 26.0;
+		public static final double WIDTH = 20.7; // 26.0
 		public static final double LENGTH = 20.7;
 		public static final double RATIO = Math.sqrt((LENGTH * LENGTH) + (WIDTH * WIDTH));
 
@@ -30,10 +30,21 @@ public class RobotMap {
 		
 		public static final double LED_BRIGHTNESS = 0.4;
 		
-		public static final boolean TESTING_MODE = false;
+		public static final boolean TESTING_MODE = true; // false
 	}
 
-	public static class PIDs {
+	public static class PIDs { // Prototype Robot.
+		public static final PID DRIVE_ANGLE_FRONT_LEFT = new PID(5.2, 0.0, 5.8);
+		public static final PID DRIVE_ANGLE_FRONT_RIGHT = new PID(2.6, 0.0, 4.9);
+		public static final PID DRIVE_ANGLE_BACK_LEFT =  new PID(5.2, 0.0, 5.8);
+		public static final PID DRIVE_ANGLE_BACK_RIGHT = new PID(5.2, 0.0, 5.8);
+		public static final PID DRIVE_ROTATE = new PID(0.01, 0.0, 0.002);
+		public static final PID DRIVE_MODE_SPEED = new PID(0.0, 0.0, 0.0);
+		public static final PID DRIVE_MODE_RATE = new PID(0.05, 0.0, 0.025, 0.3);
+		public static final PID DRIVE_MODE_DISTANCE = new PID(0.22, 0.0, 0.0);
+	}
+	
+	/*public static class PIDs { // Actual Robot.
 		public static final PID DRIVE_ANGLE_FRONT_LEFT = new PID(4.9, 0.0, 4.0); // new PID(5.2, 0.0, 9.8)
 		public static final PID DRIVE_ANGLE_FRONT_RIGHT = new PID(3.8, 0.0, 4.0); // new PID(2.6, 0.0, 4.9)
 		public static final PID DRIVE_ANGLE_BACK_LEFT = new PID(5.4, 0.0, 4.3); // new PID(5.2, 0.0, 9.8)
@@ -42,7 +53,7 @@ public class RobotMap {
 		public static final PID DRIVE_MODE_SPEED = new PID(0.0, 0.0, 0.0);
 		public static final PID DRIVE_MODE_RATE = new PID(0.05, 0.0, 0.025, 0.3);
 		public static final PID DRIVE_MODE_DISTANCE = new PID(0.22, 0.0, 0.0);
-	}
+	}*/
 	
 	public static class PWM {
 	}

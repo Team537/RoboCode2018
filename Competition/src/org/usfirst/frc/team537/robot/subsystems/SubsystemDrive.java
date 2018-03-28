@@ -36,8 +36,6 @@ public class SubsystemDrive extends Subsystem implements PIDOutput {
 		RobotMap.PIDs.DRIVE_ANGLE_BACK_RIGHT
 	);
 	private PIDController controllerRotate;
-	private double lastTime;
-	private double timeAligned;
 
 	public SubsystemDrive() {
 		setName("Drive");
@@ -48,9 +46,6 @@ public class SubsystemDrive extends Subsystem implements PIDOutput {
 		this.controllerRotate.setPercentTolerance(0.07);
 		this.controllerRotate.setContinuous();
 		this.controllerRotate.disable();
-		
-		this.lastTime = 0.0;
-		this.timeAligned = 0.0;
 		
 		Timer timerDashboard = new Timer();
 		timerDashboard.schedule(new TimerTask() {
@@ -86,20 +81,6 @@ public class SubsystemDrive extends Subsystem implements PIDOutput {
 	}
 
 	public void setTarget(double gyro, double rotation, double strafe, double forward) {
-		if (isAtAngle(10.0)) {
-			double newTime = (double) System.currentTimeMillis() / 1000.0;
-			double delta = newTime - lastTime;
-			if (lastTime == 0.0) {
-				delta = 0.0;
-			}
-			lastTime = newTime;
-			
-			timeAligned += delta;
-			SmartDashboard.putNumber("Time Aligned (s)", timeAligned); // 135s in a match.
-		} else {
-			lastTime = 0.0;
-		}
-		
 		if (controllerRotate.isEnabled()) {
 			rotation = controllerRotate.get();
 		}
@@ -133,7 +114,7 @@ public class SubsystemDrive extends Subsystem implements PIDOutput {
 			brs /= maxSpeed;
 		}
 		
-		if ((driverControl && !isAtAngle(30.0)) || (!isDriverControl() && !isAtAngle(8.0))) {
+		if ((driverControl && !isAtAngle(60.0)) || (!driverControl && !isAtAngle(8.0))) {
 			frs = 0.0;
 			fls = 0.0;
 			bls = 0.0;
@@ -199,8 +180,7 @@ public class SubsystemDrive extends Subsystem implements PIDOutput {
 		return frontRight.getMode() == SwerveMode.ModeSpeed;
 	}
 	
-	public double getAverageSpeed()
-	{
+	public double getAverageSpeed() {
 		return (frontRight.getSetpointDrive() + frontLeft.getSetpointDrive() + backLeft.getSetpointDrive() + backRight.getSetpointDrive()) / 4.0;
 	}
 	
