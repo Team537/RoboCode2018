@@ -34,10 +34,10 @@ public class RobotMap {
 	}
 
 	public static class PIDs { // Prototype Robot.
-		public static final PID DRIVE_ANGLE_FRONT_LEFT = new PID(5.2, 0.0, 5.8);
+		public static final PID DRIVE_ANGLE_FRONT_LEFT = new PID(4.5, 0.0, 4.4);
 		public static final PID DRIVE_ANGLE_FRONT_RIGHT = new PID(2.6, 0.0, 4.9);
-		public static final PID DRIVE_ANGLE_BACK_LEFT =  new PID(5.2, 0.0, 5.8);
-		public static final PID DRIVE_ANGLE_BACK_RIGHT = new PID(5.2, 0.0, 5.8);
+		public static final PID DRIVE_ANGLE_BACK_LEFT =  new PID(4.5, 0.0, 4.4);
+		public static final PID DRIVE_ANGLE_BACK_RIGHT = new PID(4.5, 0.0, 4.4);
 		public static final PID DRIVE_ROTATE = new PID(0.01, 0.0, 0.002);
 		public static final PID DRIVE_MODE_SPEED = new PID(0.0, 0.0, 0.0);
 		public static final PID DRIVE_MODE_RATE = new PID(0.05, 0.0, 0.025, 0.3);

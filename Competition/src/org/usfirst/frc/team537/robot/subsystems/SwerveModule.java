@@ -79,6 +79,9 @@ public class SwerveModule {
 		talonDrive.enableCurrentLimit(false);
 		talonDrive.configPeakCurrentDuration(0, RobotMap.kTimeoutMs); // 10
 		talonDrive.configPeakCurrentLimit(0, RobotMap.kTimeoutMs); // 40
+		
+	//	int absolutePosition = talonAngle.getSensorCollection().getPulseWidthPosition() & 0xFFF; 
+	//	talonAngle.getSensorCollection().setPulseWidthPosition(absolutePosition, RobotMap.kTimeoutMs); // talonAngle.setEncPosition(absolutePosition);
 	}
 
 	public void dashboard() {
@@ -165,9 +168,6 @@ public class SwerveModule {
 	}
 
 	public void reset() {
-	//	int absolutePosition = talonAngle.getSensorCollection().getPulseWidthPosition() & 0xFFF; 
-	//	talonAngle.getSensorCollection().setQuadraturePosition(absolutePosition, RobotMap.kTimeoutMs); // talonAngle.setEncPosition(absolutePosition);
-		
 		talonDrive.setSelectedSensorPosition(0, RobotMap.kPIDLoopIdx, RobotMap.kTimeoutMs);
 		stop();
 	}
