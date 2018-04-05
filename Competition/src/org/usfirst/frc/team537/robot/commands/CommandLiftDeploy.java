@@ -33,14 +33,14 @@ public class CommandLiftDeploy extends Command {
 				state = 1;
 			}
 			
-			Robot.subsystemLift.setSpeed(-1.0);
+			Robot.subsystemLift.setSpeed(-0.5);
 			break;
 		case 1:
 			if (timer.get() > 0.9) {
 				state = 2;
 			}
 			
-			Robot.subsystemLift.setSpeed(0.8);
+			Robot.subsystemLift.setSpeed(0.4);
 			break;
 		case 2:
 			Robot.subsystemLift.setSpeed(0.0);

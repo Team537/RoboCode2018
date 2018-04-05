@@ -36,12 +36,12 @@ public class OI {
 
 		if (RobotMap.Subsystems.LIFT) {
 			this.joystickSecondary.getJoystickButton("CubeUp").whileHeld(new CommandLiftSpeed(1.0));
-			this.joystickSecondary.getJoystickButton("CubeDown").whileHeld(new CommandLiftSpeed(-0.8));
+			this.joystickSecondary.getJoystickButton("CubeDown").whileHeld(new CommandLiftSpeed(-0.45));
 		}
 
 		if (RobotMap.Subsystems.COLLECT) {
-			this.joystickSecondary.getJoystickButton("CubeIn").whileHeld(new CommandCollectSpeed(-0.6));
-			this.joystickSecondary.getJoystickButton("CubeOut").whileHeld(new CommandCollectSpeed(0.8));
+			this.joystickSecondary.getJoystickButton("CubeIn").whileHeld(new CommandCollectSpeed(-0.67));
+			this.joystickSecondary.getJoystickButton("CubeOut").whileHeld(new CommandCollectSpeed(0.83));
 		}
 	}
 }

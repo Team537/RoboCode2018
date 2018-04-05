@@ -21,7 +21,7 @@ public class AutoCross extends CommandGroup {
 			case 2: // Centre.
 				DriverStation.reportWarning("AutoCross centre!", false);
 				addSequential(new CommandDriveRate(0.0, 0.8, 1.5)); // Forward 1m.
-				addSequential(new CommandDriveRate(isSwitchLeft ? 90.0 : 270.0, 0.7, 2.5)); // Right 3m.
+				addSequential(new CommandDriveRate(isSwitchLeft ? 90.0 : 270.0, 0.7, 2.3)); // Right 3m.
 				addSequential(new CommandDriveRate(0.0, 0.8, 2.0)); // Forward 3m.
 			//	addSequential(new CommandDriveRotate(0.0));
 				break;
