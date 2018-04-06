@@ -27,22 +27,29 @@ public class CommandLiftDeploy extends Command {
 	protected void execute() {
 		switch (state) {
 		case 0:
-			if (timer.get() > 1.1) {
+			if (timer.get() > 0.3) { // 1.3
 				timer.reset();
 				timer.start();
 				state = 1;
 			}
 			
-			Robot.subsystemLift.setSpeed(-0.5);
+			Robot.subsystemLift.setSpeed(-0.4);
 			break;
 		case 1:
-			if (timer.get() > 0.9) {
+			if (timer.get() > 0.2) {
 				state = 2;
 			}
 			
 			Robot.subsystemLift.setSpeed(0.4);
 			break;
 		case 2:
+			if (!Robot.subsystemLift.hasFoundZero()) {
+				Robot.subsystemLift.setSpeed(0.3);
+			} else {
+				state = 3;
+			}
+			break;
+		case 3:
 			Robot.subsystemLift.setSpeed(0.0);
 			break;
 		}
@@ -50,7 +57,7 @@ public class CommandLiftDeploy extends Command {
 	
 	@Override
 	protected boolean isFinished() {
-		return state == 2;
+		return state == 3;
 	}
 
 	@Override

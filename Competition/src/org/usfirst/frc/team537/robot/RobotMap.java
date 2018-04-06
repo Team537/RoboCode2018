@@ -29,14 +29,25 @@ public class RobotMap {
 		public static final boolean DRIVE_ENABLED_BACK_RIGHT = true;
 
 		public static final int LIFT_LIMIT_TOP = 0;
-		public static final int LIFT_LIMIT_BOTTOM = 162330;
-		public static final int LIFT_DEADBAND = 7000;
+		public static final int LIFT_LIMIT_BOTTOM = 179040; // 182064
+		public static final int LIFT_DEADBAND = 40000;
 		
 		public static final double LED_BRIGHTNESS = 0.4;
 		
-		public static final boolean TESTING_MODE = true;
+		public static final boolean TESTING_MODE = false;
 	}
 
+	public static class PIDs { // Actual Robot.
+		public static final PID DRIVE_ANGLE_FRONT_LEFT = new PID(4.9, 0.0, 4.0);
+		public static final PID DRIVE_ANGLE_FRONT_RIGHT = new PID(3.8, 0.0, 4.0);
+		public static final PID DRIVE_ANGLE_BACK_LEFT = new PID(5.4, 0.0, 4.3);
+		public static final PID DRIVE_ANGLE_BACK_RIGHT = new PID(5.4, 0.0, 4.3);
+		public static final PID DRIVE_ROTATE = new PID(0.01, 0.0, 0.002);
+		public static final PID DRIVE_MODE_SPEED = new PID(0.0, 0.0, 0.0);
+		public static final PID DRIVE_MODE_RATE = new PID(0.05, 0.0, 0.025, 0.3);
+		public static final PID DRIVE_MODE_DISTANCE = new PID(0.22, 0.0, 0.0);
+	}
+	
 	/*public static class PIDs { // Prototype Robot.
 		public static final PID DRIVE_ANGLE_FRONT_LEFT = new PID(4.5, 0.0, 4.4);
 		public static final PID DRIVE_ANGLE_FRONT_RIGHT = new PID(2.6, 0.0, 4.9);
@@ -47,17 +58,6 @@ public class RobotMap {
 		public static final PID DRIVE_MODE_RATE = new PID(0.05, 0.0, 0.025, 0.3);
 		public static final PID DRIVE_MODE_DISTANCE = new PID(0.22, 0.0, 0.0);
 	}*/
-	
-	public static class PIDs { // Actual Robot.
-		public static final PID DRIVE_ANGLE_FRONT_LEFT = new PID(4.9, 0.0, 4.0); // new PID(5.2, 0.0, 9.8)
-		public static final PID DRIVE_ANGLE_FRONT_RIGHT = new PID(3.8, 0.0, 4.0); // new PID(2.6, 0.0, 4.9)
-		public static final PID DRIVE_ANGLE_BACK_LEFT = new PID(5.4, 0.0, 4.3); // new PID(5.2, 0.0, 9.8)
-		public static final PID DRIVE_ANGLE_BACK_RIGHT = new PID(5.4, 0.0, 4.3); // new PID(5.2, 0.0, 9.8)
-		public static final PID DRIVE_ROTATE = new PID(0.01, 0.0, 0.002);
-		public static final PID DRIVE_MODE_SPEED = new PID(0.0, 0.0, 0.0);
-		public static final PID DRIVE_MODE_RATE = new PID(0.05, 0.0, 0.025, 0.3);
-		public static final PID DRIVE_MODE_DISTANCE = new PID(0.22, 0.0, 0.0);
-	}
 	
 	public static class PWM {
 	}

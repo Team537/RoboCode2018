@@ -9,6 +9,7 @@ import org.usfirst.frc.team537.robot.commands.*;
 import org.usfirst.frc.team537.robot.helpers.Maths;
 import org.usfirst.frc.team537.robot.subsystems.SwerveModule.SwerveMode;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -54,8 +55,11 @@ public class SubsystemDrive extends Subsystem implements PIDOutput {
 				dashboard();
 			}
 		}, 0, 100);
+		
 
-		if (!RobotMap.Robot.TESTING_MODE) {
+		DriverStation.reportError("Is FMS Attached: " + DriverStation.getInstance().isFMSAttached(), false);
+
+		if (!(RobotMap.Robot.TESTING_MODE && !DriverStation.getInstance().isFMSAttached())) {
 			recalibrate();
 		}
 	}

@@ -17,25 +17,25 @@ public class AutoSwitch extends CommandGroup {
 					addSequential(new CommandDriveRate(0.0, 0.4, 2.0));
 					addSequential(new CommandDriveRate(90.0, 0.6, 2.7));
 				} else {
-					addSequential(new CommandDriveRate(90.0, 0.6, 1.3));
+					addSequential(new CommandDriveRate(90.0, 0.6, 2.5));
 				}
 
 			//	addSequential(new CommandDriveRotate(180.0));
 				addSequential(new CommandDriveRate(0.0, 0.75, 2.3));
 				break;
 			case 2: // Centre.
-				addSequential(new CommandDriveRate(0.0, 0.4, 2.0));
-				addSequential(new CommandDriveRate(isSwitchLeft ? 270.0 : 90.0, 0.6, 1.66));
+				addSequential(new CommandDriveRate(0.0, 0.3, 0.9));
+				addSequential(new CommandDriveRate(isSwitchLeft ? 270.0 : 90.0, 0.4, 2.25));
 				
 			//	addSequential(new CommandDriveRotate(180.0));
-				addSequential(new CommandDriveRate(0.0, 0.73, 1.8));
+				addSequential(new CommandDriveRate(0.0, 0.75, 2.0));
 				break;
 			case 3: // Right.
 				if (isSwitchLeft) {
 					addSequential(new CommandDriveRate(0.0, 0.4, 2.0));
 					addSequential(new CommandDriveRate(270.0, 0.6, 2.7));
 				} else {
-					addSequential(new CommandDriveRate(270.0, 0.6, 1.3));
+					addSequential(new CommandDriveRate(270.0, 0.6, 2.5));
 				}
 
 			//	addSequential(new CommandDriveRotate(180.0));
@@ -46,8 +46,7 @@ public class AutoSwitch extends CommandGroup {
 				break;
 		}
 
-	//	addParallel(new CommandLiftDeploy());
-		
+		addParallel(new CommandLiftDeploy());
 	//	addSequential(new CommandLedsColour(new Colour("#0000ff"), 10.0));
 	}
 }
