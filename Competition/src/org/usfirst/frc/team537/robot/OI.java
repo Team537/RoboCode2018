@@ -15,8 +15,6 @@ public class OI {
 		this.joystickPrimary.getJoystickButton("DriveLock").whileHeld(new CommandDriveLock());
 		this.joystickPrimary.getJoystickButton("Pivot").whileHeld(new CommandDrivePivot());
 
-		this.joystickPrimary.getJoystickButton("GyroReset").whileHeld(new CommandGyroReset(0.0));
-
 		// Joystick Secondary
 		this.joystickSecondary = new JoystickBox(RobotMap.Driver.SECONDARY_PORT);
 		
@@ -35,13 +33,13 @@ public class OI {
 		}
 
 		if (RobotMap.Subsystems.LIFT) {
-			this.joystickSecondary.getJoystickButton("CubeUp").whileHeld(new CommandLiftSpeed(1.0));
-			this.joystickSecondary.getJoystickButton("CubeDown").whileHeld(new CommandLiftSpeed(-0.45));
+			this.joystickSecondary.getJoystickButton("CubeUp").whileHeld(new CommandLiftSpeed(0.32)); // 1.0
+			this.joystickSecondary.getJoystickButton("CubeDown").whileHeld(new CommandLiftSpeed(-0.3)); // -0.3
 		}
 
 		if (RobotMap.Subsystems.COLLECT) {
-			this.joystickSecondary.getJoystickButton("CubeIn").whileHeld(new CommandCollectSpeed(-0.67));
-			this.joystickSecondary.getJoystickButton("CubeOut").whileHeld(new CommandCollectSpeed(0.83));
+			this.joystickSecondary.getJoystickButton("CubeIn").whileHeld(new CommandCollectSpeed(-0.6));
+			this.joystickSecondary.getJoystickButton("CubeOut").whileHeld(new CommandCollectSpeed(0.7));
 		}
 	}
 }

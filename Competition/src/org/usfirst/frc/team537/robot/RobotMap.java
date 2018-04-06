@@ -9,7 +9,7 @@ public class RobotMap {
 	}
 	
 	public static class Subsystems {
-		public static final boolean CAMERA = true;
+		public static final boolean CAMERA = false;
 		public static final boolean COLLECT = true;
 		public static final boolean LEDS = false; // :(
 		public static final boolean LIFT = true;
@@ -27,10 +27,14 @@ public class RobotMap {
 		public static final boolean DRIVE_ENABLED_FRONT_RIGHT = true;
 		public static final boolean DRIVE_ENABLED_BACK_LEFT = true;
 		public static final boolean DRIVE_ENABLED_BACK_RIGHT = true;
+
+		public static final int LIFT_LIMIT_TOP = 0;
+		public static final int LIFT_LIMIT_BOTTOM = 162330;
+		public static final int LIFT_DEADBAND = 7000;
 		
 		public static final double LED_BRIGHTNESS = 0.4;
 		
-		public static final boolean TESTING_MODE = false;
+		public static final boolean TESTING_MODE = true;
 	}
 
 	/*public static class PIDs { // Prototype Robot.
