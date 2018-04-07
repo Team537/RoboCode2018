@@ -18,8 +18,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SubsystemLift extends Subsystem {
 	private TalonSRX talonLift = new TalonSRX(RobotMap.CAN.LIFT);
-	private DigitalInput switchBottom = new DigitalInput(1);
-	private DigitalInput switchTop = new DigitalInput(0);
+	private DigitalInput switchTop = new DigitalInput(RobotMap.Digital.LIMIT_SWITCH_TOP);
+	private DigitalInput switchBottom = new DigitalInput(RobotMap.Digital.LIMIT_SWITCH_BOTTOM);
 	private double currentPosition;
 	private boolean foundZero;
 
@@ -33,6 +33,10 @@ public class SubsystemLift extends Subsystem {
 	//	talonLift.configForwardSoftLimitEnable(false, RobotMap.kTimeoutMs);
 	//	talonLift.configReverseSoftLimitThreshold(RobotMap.Robot.LIFT_LIMIT_BOTTOM, RobotMap.kTimeoutMs);
 	//	talonLift.configReverseSoftLimitEnable(false, RobotMap.kTimeoutMs);
+	//	talonLift.configContinuousCurrentLimit(30, RobotMap.kTimeoutMs);
+	//	talonLift.configPeakCurrentLimit(40, RobotMap.kTimeoutMs);
+	//	talonLift.configPeakCurrentDuration(100, RobotMap.kTimeoutMs);
+	//	talonLift.enableCurrentLimit(true);
 
 		talonLift.setSelectedSensorPosition(0, RobotMap.kPIDLoopIdx, RobotMap.kTimeoutMs);
 		
@@ -102,6 +106,10 @@ public class SubsystemLift extends Subsystem {
 			
 			speed = Maths.clamp(speed, -0.35, 0.35);
 		}
+		
+		//if (Math.abs(talonLift.getOutputCurrent()) > 40.0) {
+		//	speed = 0.0;
+		//}
 
 		speed = Maths.deadband(0.1, speed);
 		talonLift.set(ControlMode.PercentOutput, speed);

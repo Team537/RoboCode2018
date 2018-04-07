@@ -43,11 +43,11 @@ public class CommandLiftDeploy extends Command {
 			Robot.subsystemLift.setSpeed(0.4);
 			break;
 		case 2:
-			if (!Robot.subsystemLift.hasFoundZero()) {
-				Robot.subsystemLift.setSpeed(0.3);
-			} else {
+			//if (!Robot.subsystemLift.hasFoundZero()) {
+			//	Robot.subsystemLift.setSpeed(0.3);
+			//} else {
 				state = 3;
-			}
+			//}
 			break;
 		case 3:
 			Robot.subsystemLift.setSpeed(0.0);

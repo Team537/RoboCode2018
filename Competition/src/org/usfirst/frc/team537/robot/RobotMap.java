@@ -89,6 +89,9 @@ public class RobotMap {
 	}
 
 	public static class Digital {
+		public static final int LIMIT_SWITCH_TOP = 0;
+		public static final int LIMIT_SWITCH_BOTTOM = 1;
+		
 		public static final double DRIVE_M_TO_ENCODER = 1984.4878; // Ticks/Metre
 	}
 

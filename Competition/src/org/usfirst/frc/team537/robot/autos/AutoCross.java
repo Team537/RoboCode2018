@@ -14,7 +14,7 @@ public class AutoCross extends CommandGroup {
 		
 		switch(location) {
 			case 1: // Left.
-				addSequential(new CommandDriveRate(0.0, 0.9, 3.0));
+				addSequential(new CommandDriveRate(0.0, 0.35, 6.0));
 				break;
 			case 2: // Centre.
 				addSequential(new CommandDriveRate(0.0, 0.8, 1.5));
@@ -22,7 +22,7 @@ public class AutoCross extends CommandGroup {
 				addSequential(new CommandDriveRate(0.0, 0.8, 2.0));
 				break;
 			case 3: // Right.
-				addSequential(new CommandDriveRate(0.0, 0.9, 3.0));
+				addSequential(new CommandDriveRate(0.0, 0.35, 6.0));
 				break;
 			default:
 				DriverStation.reportError("Invalid Cross Auto location: " + location, false);
